@@ -940,8 +940,16 @@ function fmtEur(v) {
 }
 
 async function loadFinancialPanel() {
+    // Mostrar estado de carga
+    const loadingEls = document.querySelectorAll('[id^="fin-"], [id^="prog-"], [id^="kpi-"], [id^="sum-"]');
+    loadingEls.forEach(el => { if(el.textContent === '—' || el.textContent === '') el.textContent = '...'; });
+
     try {
-        const res  = await fetch('/data');
+        // Timeout de 30 segundos para Firefly lento
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
+        const res  = await fetch('/data', { signal: controller.signal });
+        clearTimeout(timeoutId);
         const json = await res.json();
         if (!json.success) throw new Error('API error');
         const d  = json.data;
