@@ -9,7 +9,7 @@ import json
 class FireflyClient:
     def __init__(self, base_url=None, token=None):
         self.base_url = base_url or os.getenv('FIREFLY_URL', 'https://firefly-core-production-2d81.up.railway.app')
-        self.token = token or os.getenv('FIREFLY_TOKEN', '')
+        self.token = token or os.getenv('FIREFLY_TOKEN', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTQwNjk2OTdhZTM2YTNiOTM2NDg3ZjVmNzljYjEyMWMyMTM2ZWEzZjZkNmQyNDc1MWQ3ODY3YmI1ZjI1ZDM3YWJlYzM1ODdmY2YzNTJkZDciLCJpYXQiOjE3ODE1MjQ3NjQuMTYwMzcxLCJuYmYiOjE3ODE1MjQ3NjQuMTYwMzczLCJleHAiOjE4MTMwNjA3NjQuMTAxMTE3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.a_f4SLFoMQLlawxcrc0NMK-SgfDHP5RFYYEwMkpV4TS6uPH_e7T8BksEGBUl63m16RQU9g-kTHuAqIWtlABIrFXUlRWi5PUD0K34NIvvShDJfNrstUrUG05qSDctQCwj4cp2zOnuv67aqkS6ntzK_uwRA6Gqe6jZbOPd_b-B1taQTMGfGYpQovr0E6L9NCELmmy6tns_MXTELQXgL6FRLVv9wQ1BFGp9zcSJgHJE15m_sXMGgtnyUDpicLCBF13K2TVZr4icCDWSzjdfHndtmucmyqULedhjR95Pfdh-ie4vwLYQ68tjaZJs5llhcNQnSTKQf3umKII9W_ZVURiajqt4MfYe86y_WcgjQaJzN1qbtGNjKGeNSdj-aPXCNv8hVnZaAZtP5zyflvb-UsNqFBJ8r_Mr2cio36t_WwO0TvkeFCcDrp16a6RtIb6mX1nH3Jvk9BmBAk1grLXEP7aW70mEMJfiOzNeydC6syt92F6wCxkOmH3_nYLT2SmwXmqvd7g_jwDVLC-DHxwETF2uFzp8av1dPWhfqdT3ZDcHcS95vmQ8l_ehQ3XPbXUGvB6J68Chthf-ZKHAAr6hQ2pMsr-AMygFQbxoGiC69vpAqY73cfzzA0Ss7w6FQ_T5Yo4QaUYi4N2GwU2Cqnyp5GRC_a0xVqOa7LbmK28es57rUdk')
         self.headers = {
             'Authorization': f'Bearer {self.token}',
             'Accept': 'application/json',
