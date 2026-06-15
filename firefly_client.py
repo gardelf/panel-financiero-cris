@@ -6,8 +6,8 @@ from datetime import datetime, timedelta
 import os
 import json
 
-# Solo se contabilizan gastos cuya cuenta destino sea esta
-ACCOUNT_FILTER = 'Personales'
+# Categorías a excluir de todos los cálculos (gastos del estudio, no personales)
+CATEGORY_EXCLUDE = 'Pilates'
 
 class FireflyClient:
     def __init__(self, base_url=None, token=None):
@@ -123,8 +123,8 @@ class FireflyClient:
             transactions = attrs.get('transactions', [])
             
             for trans in transactions:
-                # Filtrar solo cuenta destino Personales
-                if trans.get('destination_name', '') != ACCOUNT_FILTER:
+                # Excluir gastos de categoría Pilates (gastos del estudio)
+                if trans.get('category_name', '') == CATEGORY_EXCLUDE:
                     continue
                 amount = float(trans.get('amount', 0))
                 trans_type = trans.get('type', '')
@@ -177,8 +177,8 @@ class FireflyClient:
             transactions = attrs.get('transactions', [])
             
             for trans in transactions:
-                # Filtrar solo cuenta destino Personales
-                if trans.get('destination_name', '') != ACCOUNT_FILTER:
+                # Excluir gastos de categoría Pilates (gastos del estudio)
+                if trans.get('category_name', '') == CATEGORY_EXCLUDE:
                     continue
                 amount = float(trans.get('amount', 0))
                 trans_type = trans.get('type', '')
@@ -228,7 +228,10 @@ class FireflyClient:
             transactions = attrs.get('transactions', [])
             
             for trans in transactions:
-                if trans.get('type') == 'withdrawal' and trans.get('destination_name', '') == ACCOUNT_FILTER:
+                if trans.get('type') == 'withdrawal':
+                    # Excluir gastos de categoría Pilates (gastos del estudio)
+                    if trans.get('category_name', '') == CATEGORY_EXCLUDE:
+                        continue
                     amount = abs(float(trans.get('amount', 0)))
                     total += amount
                     currency = trans.get('currency_code', 'EUR')
@@ -271,7 +274,10 @@ class FireflyClient:
             transactions = attrs.get('transactions', [])
             
             for trans in transactions:
-                if trans.get('type') == 'withdrawal' and trans.get('destination_name', '') == ACCOUNT_FILTER:
+                if trans.get('type') == 'withdrawal':
+                    # Excluir gastos de categoría Pilates (gastos del estudio)
+                    if trans.get('category_name', '') == CATEGORY_EXCLUDE:
+                        continue
                     transactions_list.append({
                         'date': trans.get('date', ''),
                         'description': trans.get('description', ''),
@@ -390,6 +396,9 @@ class FireflyClient:
                 for trans in transactions:
                     # Only withdrawals with tag "Extraordinario"
                     if trans.get('type') == 'withdrawal':
+                        # Excluir gastos de categoría Pilates (gastos del estudio)
+                        if trans.get('category_name', '') == CATEGORY_EXCLUDE:
+                            continue
                         tags = trans.get('tags', [])
                         # Check if "extraordinario" is in the tags
                         has_extraordinary_tag = any(tag.lower() == 'extraordinario' for tag in tags)
@@ -482,6 +491,7 @@ class FireflyClient:
           - monthly / ndom / weekly → always fires every month
           - yearly / half-year / quarterly → only if the configured date falls
             within the requested month
+        Excluye recurrentes cuya categoría sea CATEGORY_EXCLUDE (Pilates).
         """
         try:
             import calendar
@@ -505,6 +515,11 @@ class FireflyClient:
                         continue
                     amt = abs(float(tx.get('amount', 0) or 0))
                     if amt == 0:
+                        continue
+
+                    # Excluir recurrentes de categoría Pilates (gastos del estudio)
+                    if tx.get('category_name', '') == CATEGORY_EXCLUDE:
+                        print(f"⛔ Recurrente excluido por categoría {CATEGORY_EXCLUDE}: {attrs.get('title', '')} ({amt}€)")
                         continue
 
                     for rep in reps:
