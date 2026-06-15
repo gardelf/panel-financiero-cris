@@ -9,6 +9,17 @@ import json
 # Categorías a excluir de todos los cálculos (gastos del estudio, no personales)
 CATEGORY_EXCLUDE = 'Pilates'
 
+def _is_excluded(trans):
+    """Devuelve True si la transacción debe excluirse del cálculo discrecional:
+    - categoría Pilates (gastos del estudio)
+    - generada por una regla recurrente (recurrence_id presente) → ya se contabiliza en fixed_expenses
+    """
+    if trans.get('category_name', '') == CATEGORY_EXCLUDE:
+        return True
+    if trans.get('recurrence_id'):
+        return True
+    return False
+
 class FireflyClient:
     def __init__(self, base_url=None, token=None):
         self.base_url = base_url or os.getenv('FIREFLY_URL', 'https://firefly-core-production-2d81.up.railway.app')
@@ -123,8 +134,8 @@ class FireflyClient:
             transactions = attrs.get('transactions', [])
             
             for trans in transactions:
-                # Excluir gastos de categoría Pilates (gastos del estudio)
-                if trans.get('category_name', '') == CATEGORY_EXCLUDE:
+                # Excluir Pilates y recurrentes (ya contabilizados en fixed_expenses)
+                if _is_excluded(trans):
                     continue
                 amount = float(trans.get('amount', 0))
                 trans_type = trans.get('type', '')
@@ -177,8 +188,8 @@ class FireflyClient:
             transactions = attrs.get('transactions', [])
             
             for trans in transactions:
-                # Excluir gastos de categoría Pilates (gastos del estudio)
-                if trans.get('category_name', '') == CATEGORY_EXCLUDE:
+                # Excluir Pilates y recurrentes (ya contabilizados en fixed_expenses)
+                if _is_excluded(trans):
                     continue
                 amount = float(trans.get('amount', 0))
                 trans_type = trans.get('type', '')
@@ -229,8 +240,8 @@ class FireflyClient:
             
             for trans in transactions:
                 if trans.get('type') == 'withdrawal':
-                    # Excluir gastos de categoría Pilates (gastos del estudio)
-                    if trans.get('category_name', '') == CATEGORY_EXCLUDE:
+                    # Excluir Pilates y recurrentes (ya contabilizados en fixed_expenses)
+                    if _is_excluded(trans):
                         continue
                     amount = abs(float(trans.get('amount', 0)))
                     total += amount
@@ -275,8 +286,8 @@ class FireflyClient:
             
             for trans in transactions:
                 if trans.get('type') == 'withdrawal':
-                    # Excluir gastos de categoría Pilates (gastos del estudio)
-                    if trans.get('category_name', '') == CATEGORY_EXCLUDE:
+                    # Excluir Pilates y recurrentes (ya contabilizados en fixed_expenses)
+                    if _is_excluded(trans):
                         continue
                     transactions_list.append({
                         'date': trans.get('date', ''),
