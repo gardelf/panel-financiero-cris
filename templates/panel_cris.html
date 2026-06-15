@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel — Sandbox</title>
+    <style>
+        :root {
+            --bg-base:       #eef2f7;
+            --bg-card:       #ffffff;
+            --bg-secondary:  #f6f8fb;
+            --border:        #e4e9f0;
+            --text-primary:  #1a1f2e;
+            --text-secondary:#5a6478;
+            --text-muted:    #9aa3b5;
+            --accent-blue:   #2563eb;
+            --accent-cyan:   #06b6d4;
+            --accent-purple: #7c3aed;
+            --accent-green:  #16a34a;
+            --accent-orange: #ea580c;
+            --accent-red:    #dc2626;
+            --radius-sm:     8px;
+            --radius-md:     12px;
+            --radius-lg:     16px;
+            --shadow-sm:     0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md:     0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ── */
+        .site-header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .header-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-date {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .refresh-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 7px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .refresh-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background: rgba(37,99,235,0.04);
+        }
+
+        .spin { animation: spin 0.8s linear infinite; display: inline-block; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── MAIN ── */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 28px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* ── SECTION LABEL ── */
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .dot-blue   { background: var(--accent-blue); }
+        .dot-green  { background: var(--accent-green); }
+        .dot-orange { background: var(--accent-orange); }
+        .dot-cyan   { background: var(--accent-cyan); }
+
+        .card-body { padding: 22px; }
+
+        /* ── WEEKLY CALENDAR ── */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 52px repeat(7, 1fr);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .cal-header-time {
+            background: var(--bg-secondary);
+            padding: 10px 6px;
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: center;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cal-header-day {
+            background: var(--bg-secondary);
+            padding: 10px 8px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cal-header-day:last-child { border-right: none; }
+
+        .cal-header-day.today {
+            background: linear-gradient(135deg, rgba(6,182,212,0.12) 0%, rgba(124,58,237,0.12) 100%);
+        }
+
+        .cal-header-day.weekend {
+            background: rgba(124,58,237,0.05);
+        }
+
+        .cal-day-name {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 3px;
+        }
+
+        .cal-day-num {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .cal-header-day.today .cal-day-num {
+            color: var(--accent-cyan);
+        }
+
+        .cal-today-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #06b6d4, #7c3aed);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .cal-month {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .cal-time-cell {
+            background: var(--bg-secondary);
+            padding: 4px 6px;
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: right;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            font-weight: 500;
+            vertical-align: top;
+        }
+
+        .cal-event-cell {
+            padding: 2px 3px;
+            min-height: 28px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            background: var(--bg-card);
+        }
+
+        .cal-event-cell:last-child { border-right: none; }
+
+        .cal-event-cell.weekend-cell {
+            background: rgba(124,58,237,0.025);
+        }
+
+        .cal-event-cell.today-cell {
+            background: rgba(6,182,212,0.04);
+        }
+
+        .cal-event {
+            background: linear-gradient(135deg, rgba(6,182,212,0.18) 0%, rgba(124,58,237,0.18) 100%);
+            border-left: 2px solid var(--accent-cyan);
+            color: var(--text-primary);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            margin-bottom: 2px;
+            overflow: hidden;
+        }
+
+        .cal-event-title {
+            font-weight: 600;
+            font-size: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cal-event-time {
+            font-size: 9px;
+            color: var(--text-secondary);
+            margin-top: 1px;
+        }
+
+        .cal-event.all-day {
+            background: rgba(22,163,74,0.12);
+            border-left-color: var(--accent-green);
+        }
+
+        /* ── TWO-COL GRID ── */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .two-col { grid-template-columns: 1fr; }
+            .main { padding: 16px; }
+            .site-header { padding: 12px 16px; }
+        }
+
+        /* ── BOE WIDGET ── */
+        .boe-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .boe-stat {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px 12px;
+            text-align: center;
+        }
+
+        .boe-stat-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .boe-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            line-height: 1;
+        }
+
+        .boe-stat-value.small {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .boe-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%);
+            color: #fff;
+            border: none;
+            padding: 9px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            box-shadow: 0 2px 8px rgba(124,58,237,0.25);
+        }
+
+        .btn-primary:hover { opacity: 0.88; }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 9px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .boe-message {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        /* ── IDEALISTA ── */
+        .property-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            margin-bottom: 12px;
+        }
+
+        .property-card:last-child { margin-bottom: 0; }
+
+        .property-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .property-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .metric {
+            text-align: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 8px;
+        }
+
+        .metric-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            line-height: 1;
+        }
+
+        .metric-delta {
+            font-size: 11px;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .metric-delta.up   { color: var(--accent-green); }
+        .metric-delta.down { color: var(--accent-red); }
+        .metric-delta.flat { color: var(--text-muted); }
+
+        /* ── LOADING ── */
+        .loading-state {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 28px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            flex-shrink: 0;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 11px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            background: var(--bg-card);
+            margin-top: 8px;
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="header-brand">
+        <div class="header-icon">🗂️</div>
+        <div>
+            <div class="header-title">Panel Financiero — Cristina</div>
+            <div class="header-subtitle">Seguimiento mensual de gastos</div>
+        </div>
+    </div>
+    <div class="header-meta">
+        <div class="header-date" id="header-date">—</div>
+        <button class="refresh-btn" onclick="loadAll()">
+            <span id="refresh-icon">↻</span> Actualizar
+        </button>
+    </div>
+</header>
+
+<div class="main">
+
+    <!-- ── PANEL FINANCIERO ── -->
+    <div>
+        <div class="section-label">Panel Financiero</div>
+
+        <!-- Fila 1: Objetivo + Fijos + Discrecional -->
+        <div class="card" style="margin-bottom:16px;">
+            <div class="card-body" style="padding:22px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;">
+
+                    <!-- Objetivo -->
+                    <div style="padding:0 24px 0 0;border-right:1px solid var(--border);">
+                        <div class="section-label" style="margin-bottom:8px;">Objetivo del mes</div>
+                        <div style="font-size:36px;font-weight:800;color:var(--accent-green);line-height:1;">3.000 <span style="font-size:22px;">€</span></div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">límite mensual — <span id="fin-month-name">—</span></div>
+                    </div>
+
+                    <!-- Fijos -->
+                    <div style="padding:0 24px;border-right:1px solid var(--border);">
+                        <div class="section-label" style="margin-bottom:8px;">Fijos este mes</div>
+                        <div style="font-size:28px;font-weight:700;color:var(--text-primary);line-height:1;" id="fin-fixed">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">gastos recurrentes del mes</div>
+                    </div>
+
+                    <!-- Discrecional -->
+                    <div style="padding:0 0 0 24px;">
+                        <div class="section-label" style="margin-bottom:8px;">Discrecional acumulado</div>
+                        <div style="font-size:28px;font-weight:700;color:var(--accent-orange);line-height:1;" id="fin-discr">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">media: <span id="fin-daily-avg">—</span> €/día</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Fila 2: Total gastado + Margen + Barra -->
+        <div class="card" style="margin-bottom:16px;">
+            <div class="card-body" style="padding:22px;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:14px;">
+                    <span style="font-size:14px;color:var(--text-secondary);">Total gastado</span>
+                    <span style="font-size:14px;font-weight:700;color:var(--text-primary);" id="fin-total">—</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:16px;">
+                    <span style="font-size:14px;color:var(--text-secondary);">Margen restante</span>
+                    <span style="font-size:14px;font-weight:700;color:var(--accent-green);" id="fin-margin">—</span>
+                </div>
+                <!-- Barra de progreso total -->
+                <div style="position:relative;height:10px;background:var(--bg-secondary);border-radius:5px;border:1px solid var(--border);overflow:hidden;">
+                    <div id="fin-bar" style="height:100%;border-radius:5px;background:linear-gradient(90deg,#06b6d4,#7c3aed);transition:width 0.6s ease;"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:6px;">
+                    <span style="font-size:11px;color:var(--text-muted);">0 €</span>
+                    <span style="font-size:11px;color:var(--text-secondary);font-weight:600;" id="fin-bar-pct">—</span>
+                    <span style="font-size:11px;color:var(--text-muted);">3.000 €</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fila 3: Widget de progreso mensual detallado -->
+        <div class="card" style="margin-bottom:16px;">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="dot dot-blue"></span>
+                    Objetivo Mensual — <span id="fin-month-name2" style="margin-left:4px;">—</span>
+                </div>
+                <div style="font-size:12px;color:var(--text-muted);" id="fin-days-header">—</div>
+            </div>
+            <div class="card-body">
+                <!-- 4 KPIs -->
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
+                    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
+                        <div class="section-label" style="margin-bottom:6px;">Días transcurridos</div>
+                        <div style="font-size:36px;font-weight:800;color:var(--accent-blue);" id="fin-days-elapsed">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);" id="fin-days-of">—</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
+                        <div class="section-label" style="margin-bottom:6px;">Gasto total acumulado</div>
+                        <div style="font-size:24px;font-weight:700;color:var(--text-primary);" id="fin-total2">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);" id="fin-fixed2">—</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
+                        <div class="section-label" style="margin-bottom:6px;">Gasto discrecional</div>
+                        <div style="font-size:24px;font-weight:700;color:var(--accent-orange);" id="fin-discr2">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);" id="fin-daily2">—</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
+                        <div class="section-label" style="margin-bottom:6px;">Objetivo discrecional</div>
+                        <div style="font-size:24px;font-weight:700;color:var(--accent-green);" id="fin-goal-discr">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);" id="fin-target-today">—</div>
+                    </div>
+                </div>
+
+                <!-- Barra de días con ticks -->
+                <div style="margin-bottom:20px;">
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:6px;">
+                        <span>Día 1</span>
+                        <span id="fin-day-center">—</span>
+                        <span>Día 30</span>
+                    </div>
+                    <div id="fin-days-ticks" style="display:flex;align-items:flex-end;gap:2px;height:32px;"></div>
+                </div>
+
+                <!-- Barra de gasto discrecional -->
+                <div style="margin-bottom:20px;">
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:6px;">
+                        <span>0 €</span>
+                        <span id="fin-discr-label" style="color:var(--text-secondary);font-weight:600;">—</span>
+                        <span>3.000 €</span>
+                    </div>
+                    <div style="position:relative;height:12px;background:var(--bg-secondary);border-radius:6px;border:1px solid var(--border);overflow:visible;">
+                        <div id="fin-discr-bar" style="height:100%;border-radius:6px;background:linear-gradient(90deg,#16a34a,#06b6d4);transition:width 0.6s;"></div>
+                        <div id="fin-target-marker" style="position:absolute;top:-4px;width:2px;height:20px;background:var(--accent-orange);border-radius:1px;"></div>
+                    </div>
+                    <div style="font-size:10px;color:var(--accent-orange);margin-top:4px;text-align:left;" id="fin-target-label">—</div>
+                </div>
+
+                <!-- Desviación + Proyección -->
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
+                        <div class="section-label" style="margin-bottom:6px;">Desviación vs objetivo proporcional</div>
+                        <div style="font-size:28px;font-weight:700;" id="fin-deviation">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;" id="fin-deviation-pct">—</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
+                        <div class="section-label" style="margin-bottom:6px;">Proyección fin de mes (discrecional)</div>
+                        <div style="font-size:28px;font-weight:700;color:var(--accent-blue);" id="fin-projection">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;" id="fin-projection-vs">—</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fila 4: Resumen KPIs -->
+        <div class="card" style="margin-bottom:0;">
+            <div class="card-header">
+                <div class="card-title"><span class="dot dot-purple"></span>Resumen</div>
+            </div>
+            <div class="card-body">
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+                    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;">
+                        <div class="section-label" style="margin-bottom:6px;">Gastos ayer</div>
+                        <div style="font-size:28px;font-weight:700;color:var(--accent-red);" id="fin-yesterday">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);" id="fin-yesterday-count">—</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;">
+                        <div class="section-label" style="margin-bottom:6px;">Última semana</div>
+                        <div style="font-size:28px;font-weight:700;color:var(--accent-blue);" id="fin-weekly">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);" id="fin-weekly-count">—</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;">
+                        <div class="section-label" style="margin-bottom:6px;">Mes actual</div>
+                        <div style="font-size:28px;font-weight:700;color:var(--accent-orange);" id="fin-current-month">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);" id="fin-current-month-name">—</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;">
+                        <div class="section-label" style="margin-bottom:6px;">Mes anterior</div>
+                        <div style="font-size:28px;font-weight:700;color:var(--text-secondary);" id="fin-prev-month">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);" id="fin-prev-month-name">—</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<div class="footer">
+    Panel Financiero Cristina · Datos en tiempo real
+</div>
+
+<script>
+// ── UTILS ──────────────────────────────────────────────────────────────────
+const DAYS   = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const MONTHS_SHORT = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+
+function fmtTime(d) {
+    return d.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+}
+
+// ── HEADER DATE ────────────────────────────────────────────────────────────
+(function() {
+    const d = new Date();
+    document.getElementById('header-date').textContent =
+        `${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+})();
+
+// ── WEEKLY CALENDAR (eliminado en panel Cristina) ─────────────────────────
+async function loadWeeklyCalendar() { return; // no calendar in this panel
+    if (false) {
+    const container = document.getElementById('weekly-calendar');
+    try {
+        const res  = await fetch('/week-calendar');
+        const data = await res.json();
+
+        if (!data.success) throw new Error(data.error || 'Error');
+
+        document.getElementById('cal-last-updated').textContent =
+            'Actualizado: ' + fmtTime(new Date());
+
+        const today = new Date();
+        const days  = [];
+        for (let i = 0; i < 7; i++) {
+            const d = new Date(today);
+            d.setDate(today.getDate() + i);
+            const key = d.toISOString().split('T')[0];
+            days.push({ date: d, key, events: data.events[key] || [] });
+        }
+
+        const allDayRows = days.map(d => d.events.filter(e => e.all_day));
+        const HOURS      = Array.from({length: 16}, (_, i) => i + 7);
+
+        let html = '<div style="overflow-x:auto;">';
+        html += '<div class="calendar-grid" style="min-width:700px;">';
+
+        // Header
+        html += '<div class="cal-header-time">Hora</div>';
+        days.forEach(({date}, i) => {
+            const isToday   = i === 0;
+            const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+            html += `<div class="cal-header-day ${isToday ? 'today' : ''} ${isWeekend ? 'weekend' : ''}">`;
+            html += `<div class="cal-day-name">${DAYS[date.getDay()]}</div>`;
+            html += `<div class="cal-day-num">${date.getDate()}</div>`;
+            html += `<div class="cal-month">${MONTHS_SHORT[date.getMonth()]}</div>`;
+            if (isToday) html += '<div class="cal-today-badge">Hoy</div>';
+            html += '</div>';
+        });
+
+        // All-day row
+        const hasAllDay = allDayRows.some(r => r.length > 0);
+        if (hasAllDay) {
+            html += '<div class="cal-time-cell" style="font-size:9px;padding-top:6px;">Todo el día</div>';
+            days.forEach(({date}, i) => {
+                const isToday   = i === 0;
+                const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+                html += `<div class="cal-event-cell ${isWeekend ? 'weekend-cell' : ''} ${isToday ? 'today-cell' : ''}" style="padding:3px;">`;
+                allDayRows[i].forEach(ev => {
+                    html += `<div class="cal-event all-day" title="${ev.summary}">
+                        <div class="cal-event-title">${ev.summary}</div>
+                    </div>`;
+                });
+                html += '</div>';
+            });
+        }
+
+        // Hour rows
+        HOURS.forEach(hour => {
+            html += `<div class="cal-time-cell">${hour}:00</div>`;
+            days.forEach(({date, events}, i) => {
+                const isToday   = i === 0;
+                const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+                const hourEvs   = events.filter(ev => {
+                    if (ev.all_day) return false;
+                    const sh = parseInt((ev.start || '').split(':')[0], 10);
+                    return sh === hour;
+                });
+                html += `<div class="cal-event-cell ${isWeekend ? 'weekend-cell' : ''} ${isToday ? 'today-cell' : ''}">`;
+                hourEvs.forEach(ev => {
+                    html += `<div class="cal-event" title="${ev.summary} ${ev.start}-${ev.end}">
+                        <div class="cal-event-title">${ev.summary}</div>
+                        <div class="cal-event-time">${ev.start}–${ev.end}</div>
+                    </div>`;
+                });
+                html += '</div>';
+            });
+        });
+
+        html += '</div></div>';
+        container.innerHTML = html;
+
+    } catch (err) {
+        console.error('Calendar error:', err);
+        container.innerHTML = `<div class="loading-state" style="color:var(--accent-red);">
+            ❌ Error al cargar el calendario: ${err.message}
+        </div>`;
+    }
+}
+
+// ── BOE (eliminado en panel Cristina) ─────────────────────────────────────
+const BOE_API_URL = '';
+
+async function boeLoadData() {
+    try {
+        const [statsRes, runsRes] = await Promise.all([
+            fetch(`${BOE_API_URL}/api/stats`),
+            fetch(`${BOE_API_URL}/api/runs`)
+        ]);
+        if (statsRes.ok) {
+            const stats = await statsRes.json();
+            document.getElementById('boeTotalSubastas').textContent = stats.data?.total_subastas ?? '—';
+            document.getElementById('boeNuevasHoy').textContent     = stats.data?.nuevas_hoy ?? '—';
+        }
+        if (runsRes.ok) {
+            const runs = await runsRes.json();
+            if (runs.data && runs.data.length > 0) {
+                const last = runs.data[0];
+                const t = new Date(last.end_time).toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+                document.getElementById('boeUltimaEjecucion').textContent = t;
+                document.getElementById('boeEstado').textContent = last.status === 'success' ? '✅' : '❌';
+            }
+        }
+    } catch (e) {
+        console.error('BOE error:', e);
+    }
+}
+
+async function boeExecuteScraper() {
+    const btn = document.getElementById('boe-run-btn');
+    const msg = document.getElementById('boeMessage');
+    btn.disabled = true;
+    btn.textContent = '⏳ Ejecutando...';
+    msg.style.display = 'block';
+    msg.textContent = '⏳ Scraper en ejecución...';
+    try {
+        const res    = await fetch(`${BOE_API_URL}/api/scrape`);
+        const result = await res.json();
+        if (result.success) {
+            msg.textContent = '✅ Ejecutado correctamente';
+            setTimeout(() => boeLoadData(), 3000);
+        } else {
+            msg.textContent = '❌ Error: ' + result.error;
+        }
+    } catch (e) {
+        msg.textContent = '❌ Error de conexión';
+    } finally {
+        btn.disabled = false;
+        btn.textContent = '🚀 Ejecutar';
+        setTimeout(() => { msg.style.display = 'none'; }, 5000);
+    }
+}
+
+// ── IDEALISTA (eliminado en panel Cristina) ───────────────────────────────
+async function loadIdealista() { return; // no idealista in this panel
+    if (false) {
+    const container = document.getElementById('idealista-container');
+    try {
+        const res  = await fetch('/idealista-data');
+        const data = await res.json();
+
+        if (!data || !data.properties || data.properties.length === 0) {
+            container.innerHTML = '<div class="loading-state" style="color:var(--text-muted);">Sin datos disponibles</div>';
+            return;
+        }
+
+        if (data.last_updated) {
+            const d = new Date(data.last_updated);
+            document.getElementById('idealista-updated').textContent =
+                d.toLocaleDateString('es-ES', {day:'2-digit', month:'short'}) + ' ' +
+                d.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+        }
+
+        let html = '';
+        data.properties.forEach(p => {
+            const curr = p.current  || {};
+            const prev = p.previous || {};
+
+            function delta(cur, prv) {
+                const d = (cur || 0) - (prv || 0);
+                if (d > 0) return `<div class="metric-delta up">▲ +${d}</div>`;
+                if (d < 0) return `<div class="metric-delta down">▼ ${d}</div>`;
+                return `<div class="metric-delta flat">→ 0</div>`;
+            }
+
+            html += `<div class="property-card">
+                <div class="property-title">🏠 ${p.address || 'Propiedad'}</div>
+                <div class="property-metrics">
+                    <div class="metric">
+                        <div class="metric-label">👁 Visitas</div>
+                        <div class="metric-value">${curr.visits ?? '—'}</div>
+                        ${delta(curr.visits, prev.visits)}
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">❤️ Favoritos</div>
+                        <div class="metric-value">${curr.favorites ?? '—'}</div>
+                        ${delta(curr.favorites, prev.favorites)}
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">💬 Mensajes</div>
+                        <div class="metric-value">${curr.contacts ?? '—'}</div>
+                        ${delta(curr.contacts, prev.contacts)}
+                    </div>
+                </div>
+            </div>`;
+        });
+
+        container.innerHTML = html;
+
+    } catch (e) {
+        console.error('Idealista error:', e);
+        container.innerHTML = `<div class="loading-state" style="color:var(--accent-red);">❌ Error al cargar datos</div>`;
+    }
+}
+
+// ── PANEL FINANCIERO ───────────────────────────────────────────────────────
+function fmtEur(v) {
+    if (v === null || v === undefined) return '—';
+    return v.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+}
+
+async function loadFinancialPanel() {
+    try {
+        const res  = await fetch('/data');
+        const json = await res.json();
+        if (!json.success) throw new Error('API error');
+        const d  = json.data;
+        const mp = d.monthly_progress;
+
+        // ── Fila 1 ──
+        document.getElementById('fin-month-name').textContent  = mp.month_name;
+        document.getElementById('fin-fixed').textContent       = fmtEur(mp.fixed_expenses);
+        document.getElementById('fin-discr').textContent       = fmtEur(mp.discretionary_expenses);
+        document.getElementById('fin-daily-avg').textContent   = mp.daily_average.toFixed(2);
+
+        // ── Fila 2 ──
+        const goal   = mp.monthly_goal || 3000;
+        const total  = mp.expenses_accumulated;
+        const margin = goal - total;
+        const pct    = Math.min((total / goal) * 100, 100);
+        document.getElementById('fin-total').textContent   = fmtEur(total);
+        document.getElementById('fin-margin').textContent  = fmtEur(margin);
+        document.getElementById('fin-bar').style.width     = pct.toFixed(1) + '%';
+        document.getElementById('fin-bar-pct').textContent = pct.toFixed(1) + '% del objetivo';
+
+        // ── Fila 3: header ──
+        document.getElementById('fin-month-name2').textContent = mp.month_name;
+        document.getElementById('fin-days-header').textContent =
+            `${mp.days_elapsed} de ${mp.days_in_month} días — ${mp.progress_pct}% del mes`;
+
+        // 4 KPIs
+        document.getElementById('fin-days-elapsed').textContent = mp.days_elapsed;
+        document.getElementById('fin-days-of').textContent      = `de ${mp.days_in_month} días`;
+        document.getElementById('fin-total2').textContent       = fmtEur(total);
+        document.getElementById('fin-fixed2').textContent       = `Fijos este mes: ${fmtEur(mp.fixed_expenses)}`;
+        document.getElementById('fin-discr2').textContent       = fmtEur(mp.discretionary_expenses);
+        document.getElementById('fin-daily2').textContent       = `Media: ${mp.daily_average.toFixed(2)} €/día`;
+        document.getElementById('fin-goal-discr').textContent   = fmtEur(mp.discretionary_goal);
+        document.getElementById('fin-target-today').textContent = `Hoy deberías llevar: ${fmtEur(mp.proportional_target)}`;
+
+        // Barra de días con ticks
+        document.getElementById('fin-day-center').textContent =
+            `Día ${mp.days_elapsed} / ${mp.days_in_month}`;
+        const ticksEl = document.getElementById('fin-days-ticks');
+        let ticksHtml = '';
+        for (let i = 1; i <= mp.days_in_month; i++) {
+            const isPast    = i <= mp.days_elapsed;
+            const isToday   = i === mp.days_elapsed;
+            const isMilestone = (i % 5 === 0 || i === 1 || i === mp.days_in_month);
+            const h = isToday ? 28 : isMilestone ? 20 : 14;
+            const color = isPast
+                ? (isToday ? 'var(--accent-blue)' : 'rgba(37,99,235,0.7)')
+                : 'var(--border)';
+            ticksHtml += `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">`;
+            ticksHtml += `<div style="width:100%;max-width:6px;height:${h}px;background:${color};border-radius:2px;"></div>`;
+            if (isMilestone) {
+                ticksHtml += `<div style="font-size:9px;color:var(--text-muted);margin-top:2px;">${i}</div>`;
+            } else {
+                ticksHtml += `<div style="height:14px;"></div>`;
+            }
+            ticksHtml += '</div>';
+        }
+        ticksEl.innerHTML = ticksHtml;
+
+        // Barra discrecional
+        const discrPct   = Math.min((mp.discretionary_expenses / goal) * 100, 100);
+        const targetPct  = Math.min((mp.proportional_target / goal) * 100, 100);
+        document.getElementById('fin-discr-label').textContent =
+            `Discrecional vs objetivo (${fmtEur(mp.discretionary_goal)})`;
+        document.getElementById('fin-discr-bar').style.width  = discrPct.toFixed(1) + '%';
+        document.getElementById('fin-target-marker').style.left = targetPct.toFixed(1) + '%';
+        document.getElementById('fin-target-label').textContent =
+            `objetivo hoy (${fmtEur(mp.proportional_target)})`;
+
+        // Desviación
+        const devEl  = document.getElementById('fin-deviation');
+        const devPct = document.getElementById('fin-deviation-pct');
+        devEl.textContent  = (mp.deviation >= 0 ? '+' : '') + fmtEur(mp.deviation);
+        devEl.style.color  = mp.deviation <= 0 ? 'var(--accent-green)' : 'var(--accent-red)';
+        devPct.textContent = `${mp.deviation_pct > 0 ? '+' : ''}${mp.deviation_pct}% sobre el objetivo discrecional proporcional al día de hoy`;
+
+        // Proyección
+        const projEl  = document.getElementById('fin-projection');
+        const projVs  = document.getElementById('fin-projection-vs');
+        projEl.textContent = fmtEur(mp.projected_discr);
+        const vsGoal = mp.projected_discr - mp.discretionary_goal;
+        projVs.textContent = `${vsGoal >= 0 ? '+' : ''}${fmtEur(vsGoal)} vs objetivo discrecional (${fmtEur(mp.discretionary_goal)})`;
+
+        // ── Fila 4: Resumen ──
+        document.getElementById('fin-yesterday').textContent       = fmtEur(d.yesterday?.total);
+        document.getElementById('fin-yesterday-count').textContent = `${d.yesterday?.count ?? 0} transacciones`;
+        document.getElementById('fin-weekly').textContent          = fmtEur(d.weekly?.expenses);
+        document.getElementById('fin-weekly-count').textContent    = `${d.weekly?.transactions_count ?? 0} transacciones`;
+        document.getElementById('fin-current-month').textContent   = fmtEur(d.current_month?.expenses);
+        document.getElementById('fin-current-month-name').textContent = mp.month_name;
+        document.getElementById('fin-prev-month').textContent      = fmtEur(d.previous_month?.expenses);
+        document.getElementById('fin-prev-month-name').textContent = 'Mes anterior';
+
+    } catch (err) {
+        console.error('Financial panel error:', err);
+    }
+}
+
+// ── LOAD ALL ───────────────────────────────────────────────────────────────
+async function loadAll() {
+    const icon = document.getElementById('refresh-icon');
+    icon.classList.add('spin');
+    await loadFinancialPanel();
+    icon.classList.remove('spin');
+}
+
+// Carga inicial
+loadAll();
+</script>
+
+</body>
+</html>
