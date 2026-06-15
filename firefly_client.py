@@ -6,6 +6,9 @@ from datetime import datetime, timedelta
 import os
 import json
 
+# Solo se contabilizan gastos cuya cuenta destino sea esta
+ACCOUNT_FILTER = 'Personales'
+
 class FireflyClient:
     def __init__(self, base_url=None, token=None):
         self.base_url = base_url or os.getenv('FIREFLY_URL', 'https://firefly-core-production-2d81.up.railway.app')
@@ -120,6 +123,9 @@ class FireflyClient:
             transactions = attrs.get('transactions', [])
             
             for trans in transactions:
+                # Filtrar solo cuenta destino Personales
+                if trans.get('destination_name', '') != ACCOUNT_FILTER:
+                    continue
                 amount = float(trans.get('amount', 0))
                 trans_type = trans.get('type', '')
                 currency = trans.get('currency_code', 'EUR')
@@ -171,6 +177,9 @@ class FireflyClient:
             transactions = attrs.get('transactions', [])
             
             for trans in transactions:
+                # Filtrar solo cuenta destino Personales
+                if trans.get('destination_name', '') != ACCOUNT_FILTER:
+                    continue
                 amount = float(trans.get('amount', 0))
                 trans_type = trans.get('type', '')
                 currency = trans.get('currency_code', 'EUR')
@@ -219,7 +228,7 @@ class FireflyClient:
             transactions = attrs.get('transactions', [])
             
             for trans in transactions:
-                if trans.get('type') == 'withdrawal':
+                if trans.get('type') == 'withdrawal' and trans.get('destination_name', '') == ACCOUNT_FILTER:
                     amount = abs(float(trans.get('amount', 0)))
                     total += amount
                     currency = trans.get('currency_code', 'EUR')
@@ -262,7 +271,7 @@ class FireflyClient:
             transactions = attrs.get('transactions', [])
             
             for trans in transactions:
-                if trans.get('type') == 'withdrawal':
+                if trans.get('type') == 'withdrawal' and trans.get('destination_name', '') == ACCOUNT_FILTER:
                     transactions_list.append({
                         'date': trans.get('date', ''),
                         'description': trans.get('description', ''),
