@@ -65,11 +65,13 @@ def panel_data():
         fixed_expenses     = recurring_data.get('total', 0.0)
         fixed_items        = recurring_data.get('items', [])
 
-        discretionary_expenses = max(monthly_expenses - fixed_expenses, 0)
+        # monthly_expenses ya excluye recurrentes (filtrados por recurrence_id en firefly_client)
+        # y excluye gastos de Pilates → ES directamente el gasto discrecional del mes
+        discretionary_expenses = monthly_expenses
         discretionary_goal     = max(monthly_goal - fixed_expenses, 0)
 
         daily_avg_discr  = discretionary_expenses / days_elapsed if days_elapsed > 0 else 0
-        daily_avg_total  = monthly_expenses / days_elapsed if days_elapsed > 0 else 0
+        daily_avg_total  = (monthly_expenses + fixed_expenses) / days_elapsed if days_elapsed > 0 else 0
         projected_total  = daily_avg_total * days_in_month
         projected_discr  = daily_avg_discr * days_in_month
 
