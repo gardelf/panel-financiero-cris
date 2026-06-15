@@ -113,6 +113,34 @@ def health():
     return jsonify({'status': 'ok', 'timestamp': datetime.now().isoformat()})
 
 
+@app.route('/debug', methods=['GET'])
+def debug():
+    """Diagnóstico: ver si el token está disponible en el entorno"""
+    token = os.environ.get('FIREFLY_TOKEN', '')
+    firefly_url = os.environ.get('FIREFLY_URL', 'https://firefly-core-production-2d81.up.railway.app')
+    token_preview = token[:20] + '...' if len(token) > 20 else token
+    token_len = len(token)
+    # Probar conexión directa
+    try:
+        import requests as req
+        r = req.get(f'{firefly_url}/api/v1/about',
+                    headers={'Authorization': f'Bearer {token}', 'Accept': 'application/json'},
+                    timeout=10)
+        firefly_status = r.status_code
+        firefly_ok = r.status_code == 200
+    except Exception as ex:
+        firefly_status = str(ex)
+        firefly_ok = False
+    return jsonify({
+        'token_present': bool(token),
+        'token_length': token_len,
+        'token_preview': token_preview,
+        'firefly_url': firefly_url,
+        'firefly_http_status': firefly_status,
+        'firefly_connection_ok': firefly_ok
+    })
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
