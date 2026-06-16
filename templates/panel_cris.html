@@ -924,7 +924,10 @@ async function loadFinancialPanel() {
             const color = isPast
                 ? (isToday ? 'var(--accent-blue)' : 'rgba(37,99,235,0.7)')
                 : 'var(--border)';
-            ticksHtml += `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">`;
+            ticksHtml += `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;">`;
+            if (isToday) {
+                ticksHtml += `<div style="position:absolute;top:-18px;font-size:13px;color:var(--accent-orange);line-height:1;">&#9660;</div>`;
+            }
             ticksHtml += `<div style="width:100%;max-width:6px;height:${h}px;background:${color};border-radius:2px;"></div>`;
             if (isMilestone) {
                 ticksHtml += `<div style="font-size:9px;color:var(--text-muted);margin-top:2px;">${i}</div>`;
