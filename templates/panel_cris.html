@@ -961,8 +961,10 @@ async function loadFinancialPanel() {
         idealValEl.textContent = fmtEur(idealVal);
         idealValEl.style.left      = 'calc(' + idealPct.toFixed(1) + '% + 8px)';
         idealValEl.style.transform = 'translateY(-50%)';
+        // La flecha ▲ se posiciona igual que la ▼: en el % del día actual
+        const dayPct = (mp.days_elapsed / mp.days_in_month) * 100;
         const idealArrow = document.getElementById('fin-ideal-arrow');
-        if (idealArrow) idealArrow.style.left = idealPct.toFixed(1) + '%';
+        if (idealArrow) idealArrow.style.left = dayPct.toFixed(1) + '%';
 
         document.getElementById('fin-discr-bar').style.width  = realPct.toFixed(1) + '%';
         const realValEl = document.getElementById('fin-real-value');
