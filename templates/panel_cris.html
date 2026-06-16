@@ -599,15 +599,9 @@
                     </div>
                 </div>
 
-                <!-- Totales debajo de la barra -->
-                <div style="display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">
-                    <span style="font-size:13px;color:var(--text-secondary);">Total gastado (fijos + variables)</span>
-                    <span style="font-size:13px;font-weight:700;color:var(--text-primary);" id="fin-total">—</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;margin-top:6px;">
-                    <span style="font-size:13px;color:var(--text-secondary);">Por gastar</span>
-                    <span style="font-size:13px;font-weight:700;color:var(--accent-green);" id="fin-margin">—</span>
-                </div>
+                <!-- fin-total y fin-margin ocultos para compatibilidad JS -->
+                <span id="fin-total" style="display:none;"></span>
+                <span id="fin-margin" style="display:none;"></span>
 
                 <!-- Ocultos para compatibilidad JS -->
                 <span id="fin-bar" style="display:none;"></span>
