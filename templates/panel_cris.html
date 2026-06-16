@@ -634,8 +634,8 @@
                         <div style="font-size:12px;color:var(--text-muted);" id="fin-days-of">—</div>
                     </div>
                     <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
-                        <div class="section-label" style="margin-bottom:6px;">Gasto total acumulado</div>
-                        <div style="font-size:24px;font-weight:700;color:var(--text-primary);" id="fin-total2">—</div>
+                        <div class="section-label" style="margin-bottom:6px;">Por gastar</div>
+                        <div style="font-size:24px;font-weight:700;color:var(--accent-green);" id="fin-total2">—</div>
                         <div style="font-size:12px;color:var(--text-muted);" id="fin-fixed2">—</div>
                     </div>
                     <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
@@ -892,8 +892,8 @@ async function loadFinancialPanel() {
             document.getElementById('fin-days-elapsed2').textContent = mp.days_elapsed;
         if (document.getElementById('fin-days-remaining'))
             document.getElementById('fin-days-remaining').textContent = mp.days_remaining;
-        document.getElementById('fin-total2').textContent       = fmtEur(total);
-        document.getElementById('fin-fixed2').textContent       = `Fijos este mes: ${fmtEur(mp.fixed_expenses)}`;
+        document.getElementById('fin-total2').textContent       = fmtEur(remaining);
+        document.getElementById('fin-fixed2').textContent       = `Margen del mes (objetivo ${fmtEur(goal)})`;
         document.getElementById('fin-discr2').textContent       = fmtEur(mp.discretionary_expenses);
         document.getElementById('fin-daily2').textContent       = `Media: ${mp.daily_average.toFixed(2)} €/día`;
         document.getElementById('fin-goal-discr').textContent   = fmtEur(mp.discretionary_goal);
