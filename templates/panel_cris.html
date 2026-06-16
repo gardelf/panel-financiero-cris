@@ -668,18 +668,35 @@
                     <div id="fin-days-ticks" style="display:flex;align-items:flex-end;gap:2px;height:32px;"></div>
                 </div>
 
-                <!-- Barra de gasto discrecional -->
+                <!-- Dos barras: Ideal vs Real -->
                 <div style="margin-bottom:20px;">
-                    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:6px;">
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:10px;">
                         <span>0 €</span>
                         <span id="fin-discr-label" style="color:var(--text-secondary);font-weight:600;">—</span>
-                        <span>3.000 €</span>
+                        <span id="fin-discr-goal-label" style="color:var(--text-muted);"></span>
                     </div>
-                    <div style="position:relative;height:12px;background:var(--bg-secondary);border-radius:6px;border:1px solid var(--border);overflow:visible;">
-                        <div id="fin-discr-bar" style="height:100%;border-radius:6px;background:linear-gradient(90deg,#16a34a,#06b6d4);transition:width 0.6s;"></div>
-                        <div id="fin-target-marker" style="position:absolute;top:-4px;width:2px;height:20px;background:var(--accent-orange);border-radius:1px;"></div>
+
+                    <!-- Barra IDEAL -->
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                        <div style="width:60px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);flex-shrink:0;">Ideal</div>
+                        <div style="flex:1;position:relative;height:14px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:hidden;">
+                            <div id="fin-ideal-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#ea580c,#f97316);transition:width 0.6s;"></div>
+                        </div>
+                        <div style="width:90px;font-size:12px;font-weight:700;color:var(--accent-orange);text-align:right;flex-shrink:0;" id="fin-ideal-value">—</div>
                     </div>
-                    <div style="font-size:10px;color:var(--accent-orange);margin-top:4px;text-align:left;" id="fin-target-label">—</div>
+
+                    <!-- Barra REAL -->
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:60px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-cyan);flex-shrink:0;">Real</div>
+                        <div style="flex:1;position:relative;height:14px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:hidden;">
+                            <div id="fin-discr-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#06b6d4,#7c3aed);transition:width 0.6s;"></div>
+                        </div>
+                        <div style="width:90px;font-size:12px;font-weight:700;color:var(--accent-cyan);text-align:right;flex-shrink:0;" id="fin-real-value">—</div>
+                    </div>
+
+                    <!-- Oculto para compatibilidad -->
+                    <div id="fin-target-marker" style="display:none;"></div>
+                    <div id="fin-target-label" style="display:none;"></div>
                 </div>
 
                 <!-- Desviación + Proyección -->
@@ -906,15 +923,22 @@ async function loadFinancialPanel() {
         }
         ticksEl.innerHTML = ticksHtml;
 
-        // Barra discrecional
-        const discrPct   = Math.min((mp.discretionary_expenses / goal) * 100, 100);
-        const targetPct  = Math.min((mp.proportional_target / goal) * 100, 100);
+        // Dos barras: Ideal vs Real (escala 0 → discretionary_goal)
+        const discrGoal  = mp.discretionary_goal || 1;
+        const idealVal   = mp.proportional_target || 0;
+        const realVal    = mp.discretionary_expenses || 0;
+        const idealPct   = Math.min((idealVal / discrGoal) * 100, 100);
+        const realPct    = Math.min((realVal  / discrGoal) * 100, 100);
+
         document.getElementById('fin-discr-label').textContent =
-            `Discrecional vs objetivo (${fmtEur(mp.discretionary_goal)})`;
-        document.getElementById('fin-discr-bar').style.width  = discrPct.toFixed(1) + '%';
-        document.getElementById('fin-target-marker').style.left = targetPct.toFixed(1) + '%';
-        document.getElementById('fin-target-label').textContent =
-            `objetivo hoy (${fmtEur(mp.proportional_target)})`;
+            `Variables: ideal vs real (objetivo ${fmtEur(discrGoal)})`;
+        document.getElementById('fin-discr-goal-label').textContent = fmtEur(discrGoal);
+
+        document.getElementById('fin-ideal-bar').style.width  = idealPct.toFixed(1) + '%';
+        document.getElementById('fin-ideal-value').textContent = fmtEur(idealVal);
+
+        document.getElementById('fin-discr-bar').style.width  = realPct.toFixed(1) + '%';
+        document.getElementById('fin-real-value').textContent  = fmtEur(realVal);
 
         // Desviación
         const devEl  = document.getElementById('fin-deviation');
