@@ -675,7 +675,7 @@
                             <span id="fin-day-center-label" style="color:var(--text-secondary);font-weight:600;"></span>
                             <span>Día 30</span>
                         </div>
-                        <div id="fin-days-ticks" style="display:flex;align-items:flex-end;gap:2px;height:32px;"></div>
+                        <div id="fin-days-ticks" style="display:flex;align-items:flex-end;gap:2px;height:52px;overflow:visible;"></div>
                     </div>
 
                     <!-- Cabecera de escala para barras -->
@@ -924,10 +924,13 @@ async function loadFinancialPanel() {
             const color = isPast
                 ? (isToday ? 'var(--accent-blue)' : 'rgba(37,99,235,0.7)')
                 : 'var(--border)';
-            ticksHtml += `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;">`;
+            ticksHtml += `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">`;
+            // Flecha encima del día actual (ocupa espacio fijo para todos los ticks)
+            ticksHtml += `<div style="height:18px;display:flex;align-items:flex-end;justify-content:center;">`;
             if (isToday) {
-                ticksHtml += `<div style="position:absolute;top:-18px;font-size:13px;color:var(--accent-orange);line-height:1;">&#9660;</div>`;
+                ticksHtml += `<span style="font-size:14px;color:var(--accent-orange);line-height:1;">&#9660;</span>`;
             }
+            ticksHtml += `</div>`;
             ticksHtml += `<div style="width:100%;max-width:6px;height:${h}px;background:${color};border-radius:2px;"></div>`;
             if (isMilestone) {
                 ticksHtml += `<div style="font-size:9px;color:var(--text-muted);margin-top:2px;">${i}</div>`;
