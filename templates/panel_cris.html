@@ -670,29 +670,27 @@
 
                 <!-- Dos barras: Ideal vs Real -->
                 <div style="margin-bottom:20px;">
-                    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:10px;">
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:6px;">
                         <span>0 €</span>
                         <span id="fin-discr-label" style="color:var(--text-secondary);font-weight:600;">—</span>
                         <span id="fin-discr-goal-label" style="color:var(--text-muted);"></span>
                     </div>
 
                     <!-- Barra IDEAL -->
-                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-                        <div style="width:60px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);flex-shrink:0;">Ideal</div>
-                        <div style="flex:1;position:relative;height:20px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;">
-                            <div id="fin-ideal-bar" style="position:relative;height:100%;border-radius:7px;background:linear-gradient(90deg,#ea580c,#f97316);transition:width 0.6s;display:flex;align-items:center;justify-content:flex-end;">
-                                <span id="fin-ideal-value" style="position:absolute;right:-2px;transform:translateX(100%);font-size:12px;font-weight:700;color:var(--accent-orange);white-space:nowrap;padding-left:6px;">—</span>
-                            </div>
+                    <div style="margin-bottom:10px;">
+                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);margin-bottom:4px;">Ideal</div>
+                        <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;">
+                            <div id="fin-ideal-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#ea580c,#f97316);transition:width 0.6s;"></div>
+                            <span id="fin-ideal-value" style="position:absolute;top:50%;right:calc(100% - var(--ideal-w, 50%));transform:translate(calc(100% + 6px), -50%);font-size:12px;font-weight:700;color:var(--accent-orange);white-space:nowrap;">—</span>
                         </div>
                     </div>
 
                     <!-- Barra REAL -->
-                    <div style="display:flex;align-items:center;gap:10px;">
-                        <div style="width:60px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-cyan);flex-shrink:0;">Real</div>
-                        <div style="flex:1;position:relative;height:20px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;">
-                            <div id="fin-discr-bar" style="position:relative;height:100%;border-radius:7px;background:linear-gradient(90deg,#06b6d4,#7c3aed);transition:width 0.6s;display:flex;align-items:center;justify-content:flex-end;">
-                                <span id="fin-real-value" style="position:absolute;right:-2px;transform:translateX(100%);font-size:12px;font-weight:700;color:var(--accent-cyan);white-space:nowrap;padding-left:6px;">—</span>
-                            </div>
+                    <div>
+                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-cyan);margin-bottom:4px;">Real</div>
+                        <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;">
+                            <div id="fin-discr-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#06b6d4,#7c3aed);transition:width 0.6s;"></div>
+                            <span id="fin-real-value" style="position:absolute;top:50%;right:calc(100% - var(--real-w, 20%));transform:translate(calc(100% + 6px), -50%);font-size:12px;font-weight:700;color:var(--accent-cyan);white-space:nowrap;">—</span>
                         </div>
                     </div>
 
@@ -937,10 +935,18 @@ async function loadFinancialPanel() {
         document.getElementById('fin-discr-goal-label').textContent = fmtEur(discrGoal);
 
         document.getElementById('fin-ideal-bar').style.width  = idealPct.toFixed(1) + '%';
-        document.getElementById('fin-ideal-value').textContent = fmtEur(idealVal);
+        const idealValEl = document.getElementById('fin-ideal-value');
+        idealValEl.textContent = fmtEur(idealVal);
+        idealValEl.style.left  = idealPct.toFixed(1) + '%';
+        idealValEl.style.right = 'auto';
+        idealValEl.style.transform = 'translate(6px, -50%)';
 
         document.getElementById('fin-discr-bar').style.width  = realPct.toFixed(1) + '%';
-        document.getElementById('fin-real-value').textContent  = fmtEur(realVal);
+        const realValEl = document.getElementById('fin-real-value');
+        realValEl.textContent = fmtEur(realVal);
+        realValEl.style.left  = realPct.toFixed(1) + '%';
+        realValEl.style.right = 'auto';
+        realValEl.style.transform = 'translate(6px, -50%)';
 
         // Desviación
         const devEl  = document.getElementById('fin-deviation');
