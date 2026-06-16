@@ -650,26 +650,35 @@
                     </div>
                 </div>
 
-                <!-- Días restantes + barra de días con ticks -->
-                <div style="margin-bottom:20px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-                        <div style="background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
-                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent-blue);margin-bottom:2px;">Días transcurridos</div>
-                            <div style="font-size:28px;font-weight:800;color:var(--accent-blue);line-height:1;" id="fin-days-elapsed2">—</div>
-                        </div>
-                        <div style="flex:1;text-align:center;">
-                            <div style="font-size:11px;color:var(--text-muted);" id="fin-day-center">—</div>
-                        </div>
-                        <div style="background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
-                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent-green);margin-bottom:2px;">Días restantes</div>
-                            <div style="font-size:28px;font-weight:800;color:var(--accent-green);line-height:1;" id="fin-days-remaining">—</div>
-                        </div>
+                <!-- Días transcurridos / restantes -->
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                    <div style="background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
+                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent-blue);margin-bottom:2px;">Días transcurridos</div>
+                        <div style="font-size:28px;font-weight:800;color:var(--accent-blue);line-height:1;" id="fin-days-elapsed2">—</div>
                     </div>
-                    <div id="fin-days-ticks" style="display:flex;align-items:flex-end;gap:2px;height:32px;"></div>
+                    <div style="flex:1;text-align:center;">
+                        <div style="font-size:11px;color:var(--text-muted);" id="fin-day-center">—</div>
+                    </div>
+                    <div style="background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
+                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent-green);margin-bottom:2px;">Días restantes</div>
+                        <div style="font-size:28px;font-weight:800;color:var(--accent-green);line-height:1;" id="fin-days-remaining">—</div>
+                    </div>
                 </div>
 
-                <!-- Dos barras: Ideal vs Real (mismo ancho que barra de días) -->
+                <!-- Bloque unificado: ticks de días + barras ideal/real (mismo contenedor = mismo ancho) -->
                 <div style="margin-bottom:20px;">
+
+                    <!-- Barra de ticks de días -->
+                    <div style="margin-bottom:14px;">
+                        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;">
+                            <span>Día 1</span>
+                            <span id="fin-day-center-label" style="color:var(--text-secondary);font-weight:600;"></span>
+                            <span>Día 30</span>
+                        </div>
+                        <div id="fin-days-ticks" style="display:flex;align-items:flex-end;gap:2px;height:32px;"></div>
+                    </div>
+
+                    <!-- Cabecera de escala para barras -->
                     <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:6px;">
                         <span>0 €</span>
                         <span id="fin-discr-label" style="color:var(--text-secondary);font-weight:600;">—</span>
@@ -677,7 +686,7 @@
                     </div>
 
                     <!-- Barra IDEAL -->
-                    <div style="margin-bottom:12px;">
+                    <div style="margin-bottom:10px;">
                         <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);margin-bottom:3px;">Ideal</div>
                         <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;">
                             <div id="fin-ideal-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#ea580c,#f97316);transition:width 0.6s ease;"></div>
@@ -902,6 +911,9 @@ async function loadFinancialPanel() {
         // Barra de días con ticks
         document.getElementById('fin-day-center').textContent =
             `Día ${mp.days_elapsed} / ${mp.days_in_month}`;
+        if (document.getElementById('fin-day-center-label'))
+            document.getElementById('fin-day-center-label').textContent =
+                `Día ${mp.days_elapsed} / ${mp.days_in_month}`;
         const ticksEl = document.getElementById('fin-days-ticks');
         let ticksHtml = '';
         for (let i = 1; i <= mp.days_in_month; i++) {
