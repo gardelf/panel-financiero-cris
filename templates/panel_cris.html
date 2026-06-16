@@ -668,7 +668,7 @@
                     <div id="fin-days-ticks" style="display:flex;align-items:flex-end;gap:2px;height:32px;"></div>
                 </div>
 
-                <!-- Dos barras: Ideal vs Real -->
+                <!-- Dos barras: Ideal vs Real (mismo ancho que barra de días) -->
                 <div style="margin-bottom:20px;">
                     <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:6px;">
                         <span>0 €</span>
@@ -677,20 +677,20 @@
                     </div>
 
                     <!-- Barra IDEAL -->
-                    <div style="margin-bottom:10px;">
-                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);margin-bottom:4px;">Ideal</div>
+                    <div style="margin-bottom:12px;">
+                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);margin-bottom:3px;">Ideal</div>
                         <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;">
-                            <div id="fin-ideal-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#ea580c,#f97316);transition:width 0.6s;"></div>
-                            <span id="fin-ideal-value" style="position:absolute;top:50%;right:calc(100% - var(--ideal-w, 50%));transform:translate(calc(100% + 6px), -50%);font-size:12px;font-weight:700;color:var(--accent-orange);white-space:nowrap;">—</span>
+                            <div id="fin-ideal-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#ea580c,#f97316);transition:width 0.6s ease;"></div>
+                            <span id="fin-ideal-value" style="position:absolute;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:var(--accent-orange);white-space:nowrap;left:0;">—</span>
                         </div>
                     </div>
 
                     <!-- Barra REAL -->
                     <div>
-                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-cyan);margin-bottom:4px;">Real</div>
+                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-cyan);margin-bottom:3px;">Real</div>
                         <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;">
-                            <div id="fin-discr-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#06b6d4,#7c3aed);transition:width 0.6s;"></div>
-                            <span id="fin-real-value" style="position:absolute;top:50%;right:calc(100% - var(--real-w, 20%));transform:translate(calc(100% + 6px), -50%);font-size:12px;font-weight:700;color:var(--accent-cyan);white-space:nowrap;">—</span>
+                            <div id="fin-discr-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#06b6d4,#7c3aed);transition:width 0.6s ease;"></div>
+                            <span id="fin-real-value" style="position:absolute;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:var(--accent-cyan);white-space:nowrap;left:0;">—</span>
                         </div>
                     </div>
 
@@ -937,16 +937,14 @@ async function loadFinancialPanel() {
         document.getElementById('fin-ideal-bar').style.width  = idealPct.toFixed(1) + '%';
         const idealValEl = document.getElementById('fin-ideal-value');
         idealValEl.textContent = fmtEur(idealVal);
-        idealValEl.style.left  = idealPct.toFixed(1) + '%';
-        idealValEl.style.right = 'auto';
-        idealValEl.style.transform = 'translate(6px, -50%)';
+        idealValEl.style.left      = 'calc(' + idealPct.toFixed(1) + '% + 8px)';
+        idealValEl.style.transform = 'translateY(-50%)';
 
         document.getElementById('fin-discr-bar').style.width  = realPct.toFixed(1) + '%';
         const realValEl = document.getElementById('fin-real-value');
         realValEl.textContent = fmtEur(realVal);
-        realValEl.style.left  = realPct.toFixed(1) + '%';
-        realValEl.style.right = 'auto';
-        realValEl.style.transform = 'translate(6px, -50%)';
+        realValEl.style.left      = 'calc(' + realPct.toFixed(1) + '% + 8px)';
+        realValEl.style.transform = 'translateY(-50%)';
 
         // Desviación
         const devEl  = document.getElementById('fin-deviation');
