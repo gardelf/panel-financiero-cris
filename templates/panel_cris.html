@@ -668,11 +668,10 @@
                 <!-- Bloque ticks + barras alineadas -->
                 <div style="margin-bottom:20px;">
 
-                    <!-- Etiquetas extremos -->
-                    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:2px;">
-                        <span>Día 1</span>
-                        <span id="fin-day-center-label" style="color:var(--text-secondary);font-weight:600;"></span>
-                        <span>Día 30</span>
+                    <!-- Etiquetas: días transcurridos centrado en zona izq, días restantes centrado en zona der -->
+                    <div style="position:relative;height:18px;margin-bottom:2px;">
+                        <span id="fin-label-elapsed" style="position:absolute;font-size:11px;font-weight:700;color:var(--accent-blue);transform:translateX(-50%);"></span>
+                        <span id="fin-label-remaining" style="position:absolute;font-size:11px;font-weight:700;color:var(--accent-green);transform:translateX(-50%);"></span>
                     </div>
 
                     <!-- Contenedor único: ticks + barras comparten exactamente el mismo ancho -->
@@ -913,9 +912,23 @@ async function loadFinancialPanel() {
         // Barra de días con ticks
         document.getElementById('fin-day-center').textContent =
             `Día ${mp.days_elapsed} / ${mp.days_in_month}`;
-        if (document.getElementById('fin-day-center-label'))
-            document.getElementById('fin-day-center-label').textContent =
-                `Día ${mp.days_elapsed} / ${mp.days_in_month}`;
+        // Labels de días: transcurridos centrado en zona izq, restantes centrado en zona der
+        const elapsedPct   = (mp.days_elapsed / mp.days_in_month) * 100;
+        const elapsedMidPct   = elapsedPct / 2;                          // centro de la zona transcurrida
+        const remainingMidPct = elapsedPct + (100 - elapsedPct) / 2;    // centro de la zona restante
+        const labelElapsed   = document.getElementById('fin-label-elapsed');
+        const labelRemaining = document.getElementById('fin-label-remaining');
+        if (labelElapsed) {
+            labelElapsed.textContent = mp.days_elapsed + ' días';
+            labelElapsed.style.left  = elapsedMidPct.toFixed(1) + '%';
+        }
+        if (labelRemaining) {
+            labelRemaining.textContent = mp.days_remaining + ' días';
+            labelRemaining.style.left  = remainingMidPct.toFixed(1) + '%';
+        }
+        // Ocultar el label central antiguo si existe
+        const oldCenter = document.getElementById('fin-day-center-label');
+        if (oldCenter) oldCenter.textContent = '';
         const ticksEl = document.getElementById('fin-days-ticks');
         let ticksHtml = '';
         for (let i = 1; i <= mp.days_in_month; i++) {
