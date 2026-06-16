@@ -678,7 +678,7 @@
                     <div id="fin-unified-track">
 
                         <!-- Ticks de días -->
-                        <div id="fin-days-ticks" style="display:flex;align-items:flex-end;gap:2px;height:52px;"></div>
+                        <div id="fin-days-ticks" style="display:flex;align-items:flex-end;height:52px;"></div>
 
                         <!-- Barra IDEAL: ancho = % días transcurridos; valor en el espacio restante -->
                         <div style="margin-top:8px;margin-bottom:10px;">
@@ -947,7 +947,7 @@ async function loadFinancialPanel() {
                 ticksHtml += `<span style="font-size:14px;color:var(--accent-orange);line-height:1;">&#9660;</span>`;
             }
             ticksHtml += `</div>`;
-            ticksHtml += `<div style="width:100%;max-width:6px;height:${h}px;background:${color};border-radius:2px;"></div>`;
+            ticksHtml += `<div style="width:3px;height:${h}px;background:${color};border-radius:2px;"></div>`;
             if (isMilestone) {
                 ticksHtml += `<div style="font-size:9px;color:var(--text-muted);margin-top:2px;">${i}</div>`;
             } else {
