@@ -665,51 +665,51 @@
                     </div>
                 </div>
 
-                <!-- Bloque unificado: ticks de días + barras ideal/real (mismo contenedor = mismo ancho) -->
-                <div style="margin-bottom:20px;margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px;">
+                <!-- Bloque unificado: ticks + flechas + barras en el mismo contenedor de referencia -->
+                <div style="margin-bottom:20px;">
 
-                    <!-- Barra de ticks de días -->
-                    <div style="margin-bottom:14px;">
-                        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;">
-                            <span>Día 1</span>
-                            <span id="fin-day-center-label" style="color:var(--text-secondary);font-weight:600;"></span>
-                            <span>Día 30</span>
-                        </div>
+                    <!-- Etiquetas extremos + centro -->
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:2px;">
+                        <span>Día 1 &nbsp;/&nbsp; 0€</span>
+                        <span id="fin-day-center-label" style="color:var(--text-secondary);font-weight:600;"></span>
+                        <span>Día 30 &nbsp;/&nbsp; <span id="fin-discr-goal-label"></span></span>
+                    </div>
+
+                    <!-- Contenedor único de referencia: todos los elementos usan el mismo div -->
+                    <div id="fin-unified-track" style="position:relative;">
+
+                        <!-- Ticks de días -->
                         <div id="fin-days-ticks" style="display:flex;align-items:flex-end;gap:2px;height:52px;overflow:visible;"></div>
-                    </div>
 
-                    <!-- Cabecera de escala para barras -->
-                    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:6px;">
-                        <span>0 €</span>
-                        <span id="fin-discr-label" style="color:var(--text-secondary);font-weight:600;">—</span>
-                        <span id="fin-discr-goal-label" style="color:var(--text-muted);"></span>
-                    </div>
-
-                    <!-- Barra IDEAL -->
-                    <div style="margin-bottom:10px;">
-                        <!-- Fila con label Ideal + flecha ▲ posicionada en el % del ideal -->
-                        <div style="position:relative;height:18px;margin-bottom:3px;">
-                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);">Ideal</div>
-                            <span id="fin-ideal-arrow" style="position:absolute;top:2px;font-size:13px;color:var(--accent-orange);transform:translateX(-50%);left:0;">&#9650;</span>
+                        <!-- Flecha ▲ de la barra Ideal (posicionada con JS al mismo % que la ▼) -->
+                        <div style="position:relative;height:16px;">
+                            <span id="fin-ideal-arrow" style="position:absolute;top:0;font-size:13px;color:var(--accent-orange);transform:translateX(-50%);left:50%;">&#9650;</span>
                         </div>
-                        <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;">
+
+                        <!-- Label Ideal -->
+                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);margin-bottom:3px;">Ideal</div>
+
+                        <!-- Barra IDEAL -->
+                        <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;margin-bottom:10px;">
                             <div id="fin-ideal-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#ea580c,#f97316);transition:width 0.6s ease;"></div>
                             <span id="fin-ideal-value" style="position:absolute;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:var(--accent-orange);white-space:nowrap;left:0;">—</span>
                         </div>
-                    </div>
 
-                    <!-- Barra REAL -->
-                    <div>
+                        <!-- Label Real -->
                         <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-cyan);margin-bottom:3px;">Real</div>
+
+                        <!-- Barra REAL -->
                         <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;">
                             <div id="fin-discr-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#06b6d4,#7c3aed);transition:width 0.6s ease;"></div>
                             <span id="fin-real-value" style="position:absolute;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:var(--accent-cyan);white-space:nowrap;left:0;">—</span>
                         </div>
-                    </div>
+
+                    </div><!-- fin-unified-track -->
 
                     <!-- Oculto para compatibilidad -->
                     <div id="fin-target-marker" style="display:none;"></div>
                     <div id="fin-target-label" style="display:none;"></div>
+                    <div id="fin-discr-label" style="display:none;"></div>
                 </div>
 
                 <!-- Desviación + Proyección -->
