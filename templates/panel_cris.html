@@ -687,11 +687,13 @@
 
                     <!-- Barra IDEAL -->
                     <div style="margin-bottom:10px;">
-                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);margin-bottom:3px;">Ideal</div>
+                        <!-- Fila con label Ideal + flecha ▲ posicionada en el % del ideal -->
+                        <div style="position:relative;height:18px;margin-bottom:3px;">
+                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);">Ideal</div>
+                            <span id="fin-ideal-arrow" style="position:absolute;top:2px;font-size:13px;color:var(--accent-orange);transform:translateX(-50%);left:0;">&#9650;</span>
+                        </div>
                         <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:visible;">
                             <div id="fin-ideal-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#ea580c,#f97316);transition:width 0.6s ease;"></div>
-                            <!-- Flecha ▲ encima del final de la barra ideal -->
-                            <span id="fin-ideal-arrow" style="position:absolute;top:-16px;font-size:13px;color:var(--accent-orange);transform:translateX(-50%);left:0;">&#9650;</span>
                             <span id="fin-ideal-value" style="position:absolute;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:var(--accent-orange);white-space:nowrap;left:0;">—</span>
                         </div>
                     </div>
