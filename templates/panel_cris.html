@@ -650,19 +650,17 @@
                     </div>
                 </div>
 
-                <!-- Días transcurridos / restantes -->
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-                    <div style="background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
+                <!-- Días transcurridos / restantes: centrados en su zona proporcional -->
+                <div id="fin-days-row" style="position:relative;height:70px;margin-bottom:10px;">
+                    <div id="fin-card-elapsed" style="position:absolute;transform:translateX(-50%);background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
                         <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent-blue);margin-bottom:2px;">Días transcurridos</div>
                         <div style="font-size:28px;font-weight:800;color:var(--accent-blue);line-height:1;" id="fin-days-elapsed2">—</div>
                     </div>
-                    <div style="flex:1;text-align:center;">
-                        <div style="font-size:11px;color:var(--text-muted);" id="fin-day-center">—</div>
-                    </div>
-                    <div style="background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
+                    <div id="fin-card-remaining" style="position:absolute;transform:translateX(-50%);background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
                         <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent-green);margin-bottom:2px;">Días restantes</div>
                         <div style="font-size:28px;font-weight:800;color:var(--accent-green);line-height:1;" id="fin-days-remaining">—</div>
                     </div>
+                    <div id="fin-day-center" style="display:none;"></div>
                 </div>
 
                 <!-- Bloque ticks + barras alineadas -->
@@ -902,6 +900,14 @@ async function loadFinancialPanel() {
             document.getElementById('fin-days-elapsed2').textContent = mp.days_elapsed;
         if (document.getElementById('fin-days-remaining'))
             document.getElementById('fin-days-remaining').textContent = mp.days_remaining;
+        // Posicionar tarjetas en el centro de su zona proporcional
+        const _ePct = (mp.days_elapsed / mp.days_in_month) * 100;
+        const _eMid = (_ePct / 2).toFixed(1) + '%';
+        const _rMid = (_ePct + (100 - _ePct) / 2).toFixed(1) + '%';
+        const _cardEl  = document.getElementById('fin-card-elapsed');
+        const _cardRem = document.getElementById('fin-card-remaining');
+        if (_cardEl)  _cardEl.style.left  = _eMid;
+        if (_cardRem) _cardRem.style.left = _rMid;
         document.getElementById('fin-total2').textContent       = fmtEur(remaining);
         document.getElementById('fin-fixed2').textContent       = `Margen del mes (objetivo ${fmtEur(goal)})`;
         document.getElementById('fin-discr2').textContent       = fmtEur(mp.discretionary_expenses);
