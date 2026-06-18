@@ -711,7 +711,7 @@
                 <!-- Desviación + Proyección -->
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
                     <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
-                        <div class="section-label" style="margin-bottom:6px;">Desviación vs objetivo proporcional</div>
+                        <div class="section-label" style="margin-bottom:6px;" id="fin-deviation-title">Ahorro / Déficit</div>
                         <div style="font-size:28px;font-weight:700;" id="fin-deviation">—</div>
                         <div style="font-size:12px;color:var(--text-muted);margin-top:4px;" id="fin-deviation-pct">—</div>
                     </div>
@@ -1003,12 +1003,19 @@ async function loadFinancialPanel() {
         realValEl.style.left      = 'calc(' + realPct.toFixed(1) + '% + 8px)';
         realValEl.style.transform = 'translateY(-50%)';
 
-        // Desviación
-        const devEl  = document.getElementById('fin-deviation');
-        const devPct = document.getElementById('fin-deviation-pct');
-        devEl.textContent  = (mp.deviation >= 0 ? '+' : '') + fmtEur(mp.deviation);
-        devEl.style.color  = mp.deviation <= 0 ? 'var(--accent-green)' : 'var(--accent-red)';
-        devPct.textContent = `${mp.deviation_pct > 0 ? '+' : ''}${mp.deviation_pct}% sobre el objetivo discrecional proporcional al día de hoy`;
+        // Ahorro / Déficit
+        const devEl    = document.getElementById('fin-deviation');
+        const devPct   = document.getElementById('fin-deviation-pct');
+        const devTitle = document.getElementById('fin-deviation-title');
+        // La desviación de Firefly: negativa = gastas menos de lo ideal = AHORRO
+        // Invertimos el signo para que ahorro sea positivo y déficit negativo
+        const savingVal = -(mp.deviation || 0);
+        const isAhorro  = savingVal >= 0;
+        if (devTitle) devTitle.textContent = isAhorro ? 'AHORRO' : 'DÉFICIT';
+        devEl.textContent = (isAhorro ? '+' : '') + fmtEur(savingVal);
+        devEl.style.color = isAhorro ? 'var(--accent-green)' : 'var(--accent-red)';
+        const savingPct = (-(mp.deviation_pct || 0)).toFixed(1);
+        devPct.textContent = `${isAhorro ? '+' : ''}${savingPct}% respecto al objetivo proporcional de hoy`;
 
         // Proyección
         const projEl  = document.getElementById('fin-projection');
