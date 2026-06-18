@@ -647,9 +647,15 @@
 
                 <!-- Días transcurridos / restantes: centrados en su zona proporcional -->
                 <div id="fin-days-row" style="position:relative;height:70px;margin-bottom:10px;">
-                    <div id="fin-card-elapsed" style="position:absolute;transform:translateX(-50%);background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
-                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent-blue);margin-bottom:2px;">Días transcurridos</div>
-                        <div style="font-size:28px;font-weight:800;color:var(--accent-blue);line-height:1;" id="fin-days-elapsed2">—</div>
+                    <div id="fin-card-elapsed" style="position:absolute;transform:translateX(-50%);display:flex;gap:8px;align-items:stretch;">
+                        <div style="background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
+                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent-blue);margin-bottom:2px;">Días transcurridos</div>
+                            <div style="font-size:28px;font-weight:800;color:var(--accent-blue);line-height:1;" id="fin-days-elapsed2">—</div>
+                        </div>
+                        <div style="background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
+                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent-green);margin-bottom:2px;">Puedo gastar/día</div>
+                            <div style="font-size:28px;font-weight:800;color:var(--accent-green);line-height:1;" id="fin-daily-budget2">—</div>
+                        </div>
                     </div>
                     <div id="fin-card-remaining" style="position:absolute;transform:translateX(-50%);background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
                         <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent-green);margin-bottom:2px;">Días restantes</div>
@@ -898,6 +904,10 @@ async function loadFinancialPanel() {
         if (document.getElementById('fin-daily-budget')) {
             const dailyBudget = Math.floor((mp.discretionary_goal || 1900) / (mp.days_in_month || 30));
             document.getElementById('fin-daily-budget').textContent = `Puedo gastar/día: ${dailyBudget} €`;
+        }
+        if (document.getElementById('fin-daily-budget2')) {
+            const dailyBudget2 = Math.floor((mp.discretionary_goal || 1900) / (mp.days_in_month || 30));
+            document.getElementById('fin-daily-budget2').textContent = `${dailyBudget2} €`;
         }
         // Nuevos indicadores de días en la gráfica
         if (document.getElementById('fin-days-elapsed2'))
