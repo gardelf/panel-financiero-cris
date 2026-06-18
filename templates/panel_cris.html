@@ -859,8 +859,10 @@ async function loadFinancialPanel() {
         // ── Fila 1 ──
         document.getElementById('fin-month-name').textContent  = mp.month_name;
         document.getElementById('fin-fixed').textContent       = fmtEur(mp.fixed_expenses);
-        document.getElementById('fin-discr').textContent       = fmtEur(mp.discretionary_expenses);
-        document.getElementById('fin-daily-avg').textContent   = mp.daily_average.toFixed(2);
+        if (document.getElementById('fin-discr'))
+            document.getElementById('fin-discr').textContent   = fmtEur(mp.discretionary_expenses);
+        if (document.getElementById('fin-daily-avg'))
+            document.getElementById('fin-daily-avg').textContent = mp.daily_average.toFixed(2);
         if (document.getElementById('fin-discr-goal-top'))
             document.getElementById('fin-discr-goal-top').textContent = fmtEur(mp.discretionary_goal);
 
