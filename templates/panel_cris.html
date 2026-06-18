@@ -563,11 +563,11 @@
                         <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">gastos recurrentes del mes</div>
                     </div>
 
-                    <!-- Variables gastados -->
+                    <!-- Objetivo discrecional -->
                     <div style="padding:0 0 0 24px;">
-                        <div class="section-label" style="margin-bottom:8px;">Gastos variables</div>
-                        <div style="font-size:28px;font-weight:700;color:var(--accent-orange);line-height:1;" id="fin-discr">—</div>
-                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">media: <span id="fin-daily-avg">—</span> €/día</div>
+                        <div class="section-label" style="margin-bottom:8px;">Objetivo discrecional</div>
+                        <div style="font-size:28px;font-weight:700;color:var(--accent-orange);line-height:1;" id="fin-discr-goal-top">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">margen para gastos del día a día</div>
                     </div>
 
                 </div>
@@ -861,6 +861,8 @@ async function loadFinancialPanel() {
         document.getElementById('fin-fixed').textContent       = fmtEur(mp.fixed_expenses);
         document.getElementById('fin-discr').textContent       = fmtEur(mp.discretionary_expenses);
         document.getElementById('fin-daily-avg').textContent   = mp.daily_average.toFixed(2);
+        if (document.getElementById('fin-discr-goal-top'))
+            document.getElementById('fin-discr-goal-top').textContent = fmtEur(mp.discretionary_goal);
 
         // ── Fila 2: barra tricolor y totales ──
         const goal      = mp.monthly_goal || 3000;
@@ -880,6 +882,7 @@ async function loadFinancialPanel() {
         document.getElementById('fin-bar-fixed-label').textContent   = fixedPct > 6 ? fmtEur(fixed) : '';
         document.getElementById('fin-bar-discr-label').textContent   = discrPct2 > 4 ? fmtEur(discr) : '';
         document.getElementById('fin-bar-remaining-label').textContent = fmtEur(remaining);
+        document.getElementById('fin-bar-remaining-label').style.color = '#dc2626';
 
         // ── Fila 3: header ──
         document.getElementById('fin-month-name2').textContent = mp.month_name;
