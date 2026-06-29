@@ -271,9 +271,13 @@
                         <div id="fin-bar-discr-ov" style="height:100%;background:#ea580c;display:flex;align-items:center;justify-content:center;overflow:hidden;float:left;">
                             <span id="fin-bar-discr-label-ov" style="font-size:10px;font-weight:700;color:#fff;white-space:nowrap;padding:0 6px;"></span>
                         </div>
-                        <div id="fin-bar-over" style="height:100%;background:#dc2626;display:flex;align-items:center;justify-content:center;overflow:hidden;float:left;">
-                            <span id="fin-bar-over-label" style="font-size:10px;font-weight:700;color:#fff;white-space:nowrap;padding:0 6px;"></span>
-                        </div>
+                        <div id="fin-bar-over" style="height:100%;background:#dc2626;float:left;"></div>
+                    </div>
+                    <!-- Importe de exceso fuera de la barra -->
+                    <div id="fin-bar-over-info" style="display:none;margin-top:4px;">
+                        <span style="font-size:12px;font-weight:700;color:#dc2626;">Exceso: </span>
+                        <span id="fin-bar-over-label" style="font-size:12px;font-weight:700;color:#dc2626;"></span>
+                        <span style="font-size:11px;color:var(--text-muted);margin-left:4px;">sobre el objetivo mensual</span>
                     </div>
                     <div style="display:flex;justify-content:space-between;margin-top:5px;">
                         <span style="font-size:11px;color:var(--text-muted);">0 €</span>
@@ -534,7 +538,9 @@ async function loadFinancialPanel() {
             document.getElementById('fin-bar-over').style.width            = overPctOv.toFixed(1) + '%';
             document.getElementById('fin-bar-fixed-label-ov').textContent  = fixedPctOv > 6 ? fmtEur(fixed) : '';
             document.getElementById('fin-bar-discr-label-ov').textContent  = discrPctOv > 4 ? fmtEur(discr) : '';
-            document.getElementById('fin-bar-over-label').textContent      = overPctOv > 4 ? '+' + fmtEur(over) : '';
+            // Importe exceso fuera de la barra
+            document.getElementById('fin-bar-over-label').textContent = '+' + fmtEur(over);
+            document.getElementById('fin-bar-over-info').style.display = 'block';
         }
 
         // ── Header RITMO DE GASTO ──
