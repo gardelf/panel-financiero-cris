@@ -519,11 +519,14 @@ async function loadFinancialPanel() {
             barOverWrap.style.display = 'flex';
             if (overLegend) overLegend.style.display = 'inline';
 
-            const over        = total - goal;
+            const over           = total - goal;
+            const discrGoalOv    = mp.discretionary_goal || (goal - fixed);
+            // La barra se escala sobre el total gastado (que supera el objetivo)
+            // Azul = fijos, Naranja = objetivo discrecional, Rojo = exceso
             const totalBar    = total;
-            const fixedPctOv  = (fixed / totalBar) * 100;
-            const discrPctOv  = (discr  / totalBar) * 100;
-            const overPctOv   = (over   / totalBar) * 100;
+            const fixedPctOv  = (fixed        / totalBar) * 100;
+            const discrPctOv  = (discrGoalOv  / totalBar) * 100;
+            const overPctOv   = (over         / totalBar) * 100;
 
             const ovWrap = document.getElementById('fin-bar-over-wrap');
             ovWrap.style.position = 'relative';
@@ -537,7 +540,7 @@ async function loadFinancialPanel() {
             document.getElementById('fin-bar-discr-ov').style.width        = discrPctOv.toFixed(1) + '%';
             document.getElementById('fin-bar-over').style.width            = overPctOv.toFixed(1) + '%';
             document.getElementById('fin-bar-fixed-label-ov').textContent  = fixedPctOv > 6 ? fmtEur(fixed) : '';
-            document.getElementById('fin-bar-discr-label-ov').textContent  = discrPctOv > 4 ? fmtEur(discr) : '';
+            document.getElementById('fin-bar-discr-label-ov').textContent  = discrPctOv > 4 ? fmtEur(discrGoalOv) : '';
             // Importe exceso fuera de la barra
             document.getElementById('fin-bar-over-label').textContent = '+' + fmtEur(over);
             document.getElementById('fin-bar-over-info').style.display = 'block';
