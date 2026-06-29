@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel — Sandbox</title>
+    <title>Panel — Cristina</title>
     <style>
         :root {
             --bg-base:       #eef2f7;
@@ -49,129 +49,70 @@
             box-shadow: var(--shadow-sm);
         }
 
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .header-brand { display: flex; align-items: center; gap: 12px; }
 
         .header-icon {
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             background: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%);
             border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: #fff;
         }
 
-        .header-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
+        .header-title  { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+        .header-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
 
-        .header-subtitle {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 1px;
-        }
-
-        .header-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .header-meta { display: flex; align-items: center; gap: 12px; }
 
         .header-date {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            padding: 6px 14px;
-            border-radius: 20px;
+            font-size: 13px; font-weight: 500; color: var(--text-secondary);
+            background: var(--bg-secondary); border: 1px solid var(--border);
+            padding: 6px 14px; border-radius: 20px;
         }
 
         .refresh-btn {
-            background: none;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 7px 16px;
-            border-radius: var(--radius-sm);
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            background: none; border: 1px solid var(--border);
+            color: var(--text-secondary); padding: 7px 16px;
+            border-radius: var(--radius-sm); font-size: 12px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 6px;
         }
-
-        .refresh-btn:hover {
-            border-color: var(--accent-blue);
-            color: var(--accent-blue);
-            background: rgba(37,99,235,0.04);
-        }
+        .refresh-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); background: rgba(37,99,235,0.04); }
 
         .spin { animation: spin 0.8s linear infinite; display: inline-block; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         /* ── MAIN ── */
         .main {
-            max-width: 1400px;
-            margin: 0 auto;
+            max-width: 1400px; margin: 0 auto;
             padding: 28px 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+            display: flex; flex-direction: column; gap: 24px;
         }
 
         /* ── SECTION LABEL ── */
         .section-label {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 10px;
+            font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+            text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;
         }
 
         /* ── CARD ── */
         .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            overflow: hidden;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden;
         }
 
         .card-header {
-            padding: 16px 22px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            padding: 16px 22px; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
             background: var(--bg-card);
         }
 
         .card-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 14px; font-weight: 600; color: var(--text-primary);
+            display: flex; align-items: center; gap: 8px;
         }
 
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .dot-blue   { background: var(--accent-blue); }
         .dot-green  { background: var(--accent-green); }
         .dot-orange { background: var(--accent-orange); }
@@ -179,335 +120,31 @@
 
         .card-body { padding: 22px; }
 
-        /* ── WEEKLY CALENDAR ── */
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: 52px repeat(7, 1fr);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            border: 1px solid var(--border);
+        /* ── FIN TOP GRID ── */
+        .fin-top-grid {
+            display: grid; grid-template-columns: 1fr 1fr 1fr;
+            gap: 0; margin-bottom: 24px;
         }
-
-        .cal-header-time {
-            background: var(--bg-secondary);
-            padding: 10px 6px;
-            font-size: 10px;
-            color: var(--text-muted);
-            text-align: center;
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .cal-header-day {
-            background: var(--bg-secondary);
-            padding: 10px 8px;
-            text-align: center;
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .cal-header-day:last-child { border-right: none; }
-
-        .cal-header-day.today {
-            background: linear-gradient(135deg, rgba(6,182,212,0.12) 0%, rgba(124,58,237,0.12) 100%);
-        }
-
-        .cal-header-day.weekend {
-            background: rgba(124,58,237,0.05);
-        }
-
-        .cal-day-name {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-            margin-bottom: 3px;
-        }
-
-        .cal-day-num {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-primary);
-            line-height: 1;
-        }
-
-        .cal-header-day.today .cal-day-num {
-            color: var(--accent-cyan);
-        }
-
-        .cal-today-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #06b6d4, #7c3aed);
-            color: #fff;
-            font-size: 9px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-top: 4px;
-            letter-spacing: 0.3px;
-        }
-
-        .cal-month {
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        .cal-time-cell {
-            background: var(--bg-secondary);
-            padding: 4px 6px;
-            font-size: 10px;
-            color: var(--text-muted);
-            text-align: right;
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            font-weight: 500;
-            vertical-align: top;
-        }
-
-        .cal-event-cell {
-            padding: 2px 3px;
-            min-height: 28px;
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-            background: var(--bg-card);
-        }
-
-        .cal-event-cell:last-child { border-right: none; }
-
-        .cal-event-cell.weekend-cell {
-            background: rgba(124,58,237,0.025);
-        }
-
-        .cal-event-cell.today-cell {
-            background: rgba(6,182,212,0.04);
-        }
-
-        .cal-event {
-            background: linear-gradient(135deg, rgba(6,182,212,0.18) 0%, rgba(124,58,237,0.18) 100%);
-            border-left: 2px solid var(--accent-cyan);
-            color: var(--text-primary);
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-size: 10px;
-            margin-bottom: 2px;
-            overflow: hidden;
-        }
-
-        .cal-event-title {
-            font-weight: 600;
-            font-size: 10px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .cal-event-time {
-            font-size: 9px;
-            color: var(--text-secondary);
-            margin-top: 1px;
-        }
-
-        .cal-event.all-day {
-            background: rgba(22,163,74,0.12);
-            border-left-color: var(--accent-green);
-        }
-
-        /* ── TWO-COL GRID ── */
-        .two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        @media (max-width: 900px) {
-            .two-col { grid-template-columns: 1fr; }
-            .main { padding: 16px; }
-            .site-header { padding: 12px 16px; }
-        }
-
-        /* ── BOE WIDGET ── */
-        .boe-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 18px;
-        }
-
-        .boe-stat {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 16px 12px;
-            text-align: center;
-        }
-
-        .boe-stat-label {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .boe-stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--accent-blue);
-            line-height: 1;
-        }
-
-        .boe-stat-value.small {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .boe-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%);
-            color: #fff;
-            border: none;
-            padding: 9px 20px;
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            box-shadow: 0 2px 8px rgba(124,58,237,0.25);
-        }
-
-        .btn-primary:hover { opacity: 0.88; }
-        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .btn-secondary {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-            padding: 9px 16px;
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent-blue);
-            color: var(--accent-blue);
-        }
-
-        .boe-message {
-            margin-top: 12px;
-            padding: 10px 14px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 12px;
-            color: var(--text-secondary);
-            display: none;
-        }
-
-        /* ── IDEALISTA ── */
-        .property-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 18px;
-            margin-bottom: 12px;
-        }
-
-        .property-card:last-child { margin-bottom: 0; }
-
-        .property-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .property-metrics {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .metric {
-            text-align: center;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 12px 8px;
-        }
-
-        .metric-label {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .metric-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--accent-blue);
-            line-height: 1;
-        }
-
-        .metric-delta {
-            font-size: 11px;
-            margin-top: 4px;
-            font-weight: 500;
-        }
-
-        .metric-delta.up   { color: var(--accent-green); }
-        .metric-delta.down { color: var(--accent-red); }
-        .metric-delta.flat { color: var(--text-muted); }
+        .fin-top-grid .fin-num    { font-size: 28px; font-weight: 700; line-height: 1; }
+        .fin-top-grid .fin-num-lg { font-size: 36px; font-weight: 800; line-height: 1; }
 
         /* ── LOADING ── */
         .loading-state {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 28px;
-            color: var(--text-muted);
-            font-size: 13px;
+            display: flex; align-items: center; gap: 10px;
+            padding: 28px; color: var(--text-muted); font-size: 13px;
         }
 
         .spinner {
-            width: 16px;
-            height: 16px;
-            border: 2px solid var(--border);
-            border-top-color: var(--accent-cyan);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            flex-shrink: 0;
+            width: 16px; height: 16px;
+            border: 2px solid var(--border); border-top-color: var(--accent-cyan);
+            border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0;
         }
 
         /* ── FOOTER ── */
         .footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 11px;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border);
-            background: var(--bg-card);
-            margin-top: 8px;
+            text-align: center; padding: 20px; font-size: 11px;
+            color: var(--text-muted); border-top: 1px solid var(--border);
+            background: var(--bg-card); margin-top: 8px;
         }
 
         /* ── SCROLLBAR ── */
@@ -515,6 +152,14 @@
         ::-webkit-scrollbar-track { background: var(--bg-secondary); }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        @media (max-width: 900px) {
+            .main { padding: 16px; }
+            .site-header { padding: 12px 16px; }
+            .fin-top-grid { grid-template-columns: 1fr; gap: 16px; }
+            .fin-top-grid > div { border-right: none !important; border-bottom: 1px solid var(--border); padding: 0 0 16px 0 !important; }
+            .fin-kpi-grid { grid-template-columns: 1fr 1fr !important; }
+        }
     </style>
 </head>
 <body>
@@ -542,71 +187,107 @@
     <div>
         <div class="section-label">Panel Financiero</div>
 
-        <!-- Fila 1+2: Resumen numérico + Barra tricolor -->
+        <!-- Fila 1+2: Resumen numérico + Barra -->
         <div class="card" style="margin-bottom:16px;">
             <div class="card-body" style="padding:22px;">
 
                 <!-- Números resumen -->
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:24px;">
+                <div class="fin-top-grid">
 
                     <!-- Objetivo -->
                     <div style="padding:0 24px 0 0;border-right:1px solid var(--border);">
                         <div class="section-label" style="margin-bottom:8px;">Objetivo del mes</div>
-                        <div style="font-size:36px;font-weight:800;color:var(--accent-green);line-height:1;">3.000 <span style="font-size:22px;">€</span></div>
+                        <div class="fin-num-lg" style="color:var(--accent-green);">3.000 <span style="font-size:0.6em;">€</span></div>
                         <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">límite mensual — <span id="fin-month-name">—</span></div>
                     </div>
 
                     <!-- Fijos -->
                     <div style="padding:0 24px;border-right:1px solid var(--border);">
                         <div class="section-label" style="margin-bottom:8px;">Gastos fijos</div>
-                        <div style="font-size:28px;font-weight:700;color:var(--accent-blue);line-height:1;" id="fin-fixed">—</div>
-                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">gastos recurrentes del mes</div>
+                        <div class="fin-num" style="color:var(--accent-blue);" id="fin-fixed">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">
+                            gastos recurrentes del mes
+                            <button id="fin-fixed-toggle" onclick="toggleFixedDetail()" style="margin-left:8px;font-size:11px;color:var(--accent-blue);background:none;border:none;cursor:pointer;padding:0;font-weight:600;">&#9660; ver detalle</button>
+                        </div>
                     </div>
 
                     <!-- Objetivo discrecional -->
                     <div style="padding:0 0 0 24px;">
                         <div class="section-label" style="margin-bottom:8px;">Objetivo discrecional</div>
-                        <div style="font-size:28px;font-weight:700;color:var(--accent-orange);line-height:1;" id="fin-discr-goal-top">—</div>
+                        <div class="fin-num" style="color:var(--accent-orange);" id="fin-discr-goal-top">—</div>
                         <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">margen para gastos del día a día</div>
                     </div>
 
                 </div>
 
-                <!-- Barra tricolor 0€ → 3000€ -->
+                <!-- Barra tricolor / con exceso -->
                 <div style="margin-bottom:8px;">
-                    <div style="position:relative;height:22px;background:var(--bg-secondary);border-radius:8px;border:1px solid var(--border);overflow:hidden;display:flex;">
-                        <!-- Segmento fijos (azul) -->
+                    <!-- Barra normal (sin exceso) -->
+                    <div id="fin-bar-wrap" style="position:relative;height:22px;background:var(--bg-secondary);border-radius:8px;border:1px solid var(--border);overflow:hidden;display:flex;">
                         <div id="fin-bar-fixed" style="height:100%;background:#2563eb;transition:width 0.6s ease;display:flex;align-items:center;justify-content:center;overflow:hidden;">
                             <span id="fin-bar-fixed-label" style="font-size:10px;font-weight:700;color:#fff;white-space:nowrap;padding:0 6px;"></span>
                         </div>
-                        <!-- Segmento variables (naranja) -->
                         <div id="fin-bar-discr" style="height:100%;background:#ea580c;transition:width 0.6s ease;display:flex;align-items:center;justify-content:center;overflow:hidden;">
                             <span id="fin-bar-discr-label" style="font-size:10px;font-weight:700;color:#fff;white-space:nowrap;padding:0 6px;"></span>
                         </div>
-                        <!-- Segmento por gastar (gris) -->
                         <div id="fin-bar-remaining" style="height:100%;background:var(--border);flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                            <span id="fin-bar-remaining-label" style="font-size:10px;font-weight:600;color:var(--text-secondary);white-space:nowrap;padding:0 6px;"></span>
+                            <span id="fin-bar-remaining-label" style="font-size:10px;font-weight:600;color:#dc2626;white-space:nowrap;padding:0 6px;"></span>
+                        </div>
+                    </div>
+                    <!-- Barra con exceso (visible cuando total > objetivo) -->
+                    <div id="fin-bar-over-wrap" style="display:none;position:relative;height:22px;border-radius:8px;border:2px solid #dc2626;overflow:hidden;display:none;">
+                        <div id="fin-bar-fixed-ov" style="height:100%;background:#2563eb;display:flex;align-items:center;justify-content:center;overflow:hidden;float:left;">
+                            <span id="fin-bar-fixed-label-ov" style="font-size:10px;font-weight:700;color:#fff;white-space:nowrap;padding:0 6px;"></span>
+                        </div>
+                        <div id="fin-bar-discr-ov" style="height:100%;background:#ea580c;display:flex;align-items:center;justify-content:center;overflow:hidden;float:left;">
+                            <span id="fin-bar-discr-label-ov" style="font-size:10px;font-weight:700;color:#fff;white-space:nowrap;padding:0 6px;"></span>
+                        </div>
+                        <div id="fin-bar-over" style="height:100%;background:#dc2626;display:flex;align-items:center;justify-content:center;overflow:hidden;float:left;">
+                            <span id="fin-bar-over-label" style="font-size:10px;font-weight:700;color:#fff;white-space:nowrap;padding:0 6px;"></span>
                         </div>
                     </div>
                     <div style="display:flex;justify-content:space-between;margin-top:5px;">
                         <span style="font-size:11px;color:var(--text-muted);">0 €</span>
                         <div style="display:flex;gap:16px;">
-                            <span style="font-size:11px;color:#2563eb;">■ Fijos</span>
-                            <span style="font-size:11px;color:#ea580c;">■ Variables</span>
-                            <span style="font-size:11px;color:var(--text-muted);">■ Por gastar</span>
+                            <span style="font-size:11px;color:#2563eb;">&#9632; Fijos</span>
+                            <span style="font-size:11px;color:#ea580c;">&#9632; Variables</span>
+                            <span style="font-size:11px;color:var(--text-muted);">&#9632; Por gastar</span>
+                            <span id="fin-bar-over-legend" style="font-size:11px;color:#dc2626;display:none;">&#9632; Exceso</span>
                         </div>
                         <span style="font-size:11px;color:var(--text-muted);">3.000 €</span>
                     </div>
                 </div>
 
-                <!-- fin-total y fin-margin ocultos para compatibilidad JS -->
+                <!-- Ocultos para compatibilidad JS -->
                 <span id="fin-total" style="display:none;"></span>
                 <span id="fin-margin" style="display:none;"></span>
-
-                <!-- Ocultos para compatibilidad JS -->
                 <span id="fin-bar" style="display:none;"></span>
                 <span id="fin-bar-pct" style="display:none;"></span>
+                <span id="fin-discr" style="display:none;"></span>
+                <span id="fin-daily-avg" style="display:none;"></span>
 
+            </div>
+        </div>
+
+        <!-- Panel desplegable: Gastos discrecionales por categoría -->
+        <div id="fin-discr-detail" style="display:none;margin-bottom:16px;text-align:center;">
+            <div style="display:inline-block;text-align:left;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 16px;min-width:220px;max-width:480px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                    <span style="font-size:12px;font-weight:700;color:var(--accent-orange);">GASTO DISCRECIONAL</span>
+                    <button onclick="toggleDiscrDetail()" style="font-size:12px;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:0 0 0 12px;">&#10005;</button>
+                </div>
+                <div id="fin-discr-categories">Cargando...</div>
+            </div>
+        </div>
+
+        <!-- Panel desplegable: Gastos fijos por categoría -->
+        <div id="fin-fixed-detail" style="display:none;margin-bottom:16px;text-align:center;">
+            <div style="display:inline-block;text-align:left;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 16px;min-width:220px;max-width:480px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                    <span style="font-size:12px;font-weight:700;color:var(--accent-blue);">GASTOS RECURRENTES</span>
+                    <button onclick="toggleFixedDetail()" style="font-size:12px;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:0 0 0 12px;">&#10005;</button>
+                </div>
+                <div id="fin-fixed-categories">Cargando...</div>
             </div>
         </div>
 
@@ -621,7 +302,7 @@
             </div>
             <div class="card-body">
                 <!-- 4 KPIs -->
-                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
+                <div class="fin-kpi-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
                     <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
                         <div class="section-label" style="margin-bottom:6px;">Días transcurridos</div>
                         <div style="font-size:36px;font-weight:800;color:var(--accent-blue);" id="fin-days-elapsed">—</div>
@@ -631,7 +312,10 @@
                     <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
                         <div class="section-label" style="margin-bottom:6px;">Gasto discrecional</div>
                         <div style="font-size:24px;font-weight:700;color:var(--accent-orange);" id="fin-discr2">—</div>
-                        <div style="font-size:12px;color:var(--text-muted);" id="fin-daily2">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);">
+                            <span id="fin-daily2">—</span>
+                            <button id="fin-discr-toggle" onclick="toggleDiscrDetail()" style="margin-left:8px;font-size:11px;color:var(--accent-orange);background:none;border:none;cursor:pointer;padding:0;font-weight:600;">&#9660; ver detalle</button>
+                        </div>
                     </div>
                     <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
                         <div class="section-label" style="margin-bottom:6px;">Por gastar</div>
@@ -645,7 +329,7 @@
                     </div>
                 </div>
 
-                <!-- Días transcurridos / restantes: centrados en su zona proporcional -->
+                <!-- Días transcurridos / restantes -->
                 <div id="fin-days-row" style="position:relative;height:70px;margin-bottom:10px;">
                     <div id="fin-card-elapsed" style="position:absolute;transform:translateX(-50%);display:flex;gap:8px;align-items:stretch;">
                         <div style="background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);border-radius:8px;padding:8px 16px;text-align:center;">
@@ -664,51 +348,58 @@
                     <div id="fin-day-center" style="display:none;"></div>
                 </div>
 
-                <!-- Bloque ticks + barras alineadas -->
+                <!-- Bloque ticks + barras -->
                 <div style="margin-bottom:20px;">
 
-                    <!-- Etiquetas: días transcurridos centrado en zona izq, días restantes centrado en zona der -->
                     <div style="position:relative;height:18px;margin-bottom:2px;">
                         <span id="fin-label-elapsed" style="position:absolute;font-size:11px;font-weight:700;color:var(--accent-blue);transform:translateX(-50%);"></span>
                         <span id="fin-label-remaining" style="position:absolute;font-size:11px;font-weight:700;color:var(--accent-green);transform:translateX(-50%);"></span>
                     </div>
 
-                    <!-- Contenedor único: ticks + barras comparten exactamente el mismo ancho -->
                     <div id="fin-unified-track">
 
                         <!-- Ticks de días -->
                         <div id="fin-days-ticks" style="display:flex;align-items:flex-end;height:52px;"></div>
 
-                        <!-- Barra IDEAL: ancho = % días transcurridos; valor en el espacio restante -->
+                        <!-- Barra IDEAL -->
                         <div style="margin-top:8px;margin-bottom:10px;">
                             <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);margin-bottom:3px;">Ideal</div>
-                            <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);">
-                                <div id="fin-ideal-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#ea580c,#f97316);transition:width 0.6s ease;"></div>
-                                <!-- Valor en el espacio restante, justo después de la barra rellena -->
-                                <span id="fin-ideal-value" style="position:absolute;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:var(--accent-orange);white-space:nowrap;margin-left:8px;">—</span>
+                            <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:hidden;">
+                                <div id="fin-ideal-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#ea580c,#f97316);transition:width 0.6s ease;display:flex;align-items:center;justify-content:flex-end;">
+                                    <span id="fin-ideal-value" style="font-size:11px;font-weight:700;color:#fff;white-space:nowrap;padding-right:8px;">—</span>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Barra REAL: ancho = % gasto real sobre objetivo discrecional -->
+                        <!-- Barra REAL -->
                         <div>
                             <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-cyan);margin-bottom:3px;">Real</div>
-                            <div style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);">
-                                <div id="fin-discr-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#06b6d4,#7c3aed);transition:width 0.6s ease;"></div>
-                                <span id="fin-real-value" style="position:absolute;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:var(--accent-cyan);white-space:nowrap;margin-left:8px;">—</span>
+                            <div id="fin-real-wrap" style="position:relative;height:16px;background:var(--bg-secondary);border-radius:7px;border:1px solid var(--border);overflow:hidden;">
+                                <div id="fin-real-bar" style="height:100%;border-radius:7px;background:linear-gradient(90deg,#06b6d4,#7c3aed);transition:width 0.6s ease;display:flex;align-items:center;justify-content:flex-end;">
+                                    <span id="fin-real-value" style="font-size:11px;font-weight:700;color:#fff;white-space:nowrap;padding-right:8px;">—</span>
+                                </div>
+                            </div>
+                            <!-- Barra de exceso (solo visible cuando gasto > objetivo discrecional) -->
+                            <div id="fin-real-over-wrap" style="display:none;margin-top:5px;">
+                                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#dc2626;margin-bottom:3px;">Exceso</div>
+                                <div style="position:relative;height:14px;background:rgba(220,38,38,0.12);border-radius:7px;border:1px solid rgba(220,38,38,0.4);overflow:hidden;">
+                                    <div id="fin-real-bar-over" style="height:100%;border-radius:7px;background:#dc2626;transition:width 0.6s ease;display:flex;align-items:center;justify-content:flex-end;">
+                                        <span id="fin-real-over-value" style="font-size:11px;font-weight:700;color:#fff;white-space:nowrap;padding-right:8px;">—</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                     </div><!-- fin-unified-track -->
 
-                    <!-- Oculto para compatibilidad -->
+                    <!-- Ocultos para compatibilidad -->
                     <div id="fin-target-marker" style="display:none;"></div>
                     <div id="fin-target-label" style="display:none;"></div>
                     <div id="fin-discr-label" style="display:none;"></div>
                     <div id="fin-discr-goal-label" style="display:none;"></div>
-                    <div id="fin-ideal-arrow" style="display:none;"></div>
                 </div>
 
-                <!-- Desviación + Proyección -->
+                <!-- Ahorro / Déficit -->
                 <div>
                     <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
                         <div class="section-label" style="margin-bottom:6px;" id="fin-deviation-title">Ahorro / Déficit</div>
@@ -719,10 +410,7 @@
             </div>
         </div>
 
-
     </div>
-
-
 
 </div>
 
@@ -734,11 +422,6 @@
 // ── UTILS ──────────────────────────────────────────────────────────────────
 const DAYS   = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-const MONTHS_SHORT = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-
-function fmtTime(d) {
-    return d.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
-}
 
 // ── HEADER DATE ────────────────────────────────────────────────────────────
 (function() {
@@ -747,65 +430,6 @@ function fmtTime(d) {
         `${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
 })();
 
-// ── WEEKLY CALENDAR (eliminado en panel Cristina) ─────────────────────────
-async function loadWeeklyCalendar() { /* no calendar in this panel */ }
-
-// ── BOE (eliminado en panel Cristina) ─────────────────────────────────────
-const BOE_API_URL = '';
-
-async function boeLoadData() {
-    try {
-        const [statsRes, runsRes] = await Promise.all([
-            fetch(`${BOE_API_URL}/api/stats`),
-            fetch(`${BOE_API_URL}/api/runs`)
-        ]);
-        if (statsRes.ok) {
-            const stats = await statsRes.json();
-            document.getElementById('boeTotalSubastas').textContent = stats.data?.total_subastas ?? '—';
-            document.getElementById('boeNuevasHoy').textContent     = stats.data?.nuevas_hoy ?? '—';
-        }
-        if (runsRes.ok) {
-            const runs = await runsRes.json();
-            if (runs.data && runs.data.length > 0) {
-                const last = runs.data[0];
-                const t = new Date(last.end_time).toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
-                document.getElementById('boeUltimaEjecucion').textContent = t;
-                document.getElementById('boeEstado').textContent = last.status === 'success' ? '✅' : '❌';
-            }
-        }
-    } catch (e) {
-        console.error('BOE error:', e);
-    }
-}
-
-async function boeExecuteScraper() {
-    const btn = document.getElementById('boe-run-btn');
-    const msg = document.getElementById('boeMessage');
-    btn.disabled = true;
-    btn.textContent = '⏳ Ejecutando...';
-    msg.style.display = 'block';
-    msg.textContent = '⏳ Scraper en ejecución...';
-    try {
-        const res    = await fetch(`${BOE_API_URL}/api/scrape`);
-        const result = await res.json();
-        if (result.success) {
-            msg.textContent = '✅ Ejecutado correctamente';
-            setTimeout(() => boeLoadData(), 3000);
-        } else {
-            msg.textContent = '❌ Error: ' + result.error;
-        }
-    } catch (e) {
-        msg.textContent = '❌ Error de conexión';
-    } finally {
-        btn.disabled = false;
-        btn.textContent = '🚀 Ejecutar';
-        setTimeout(() => { msg.style.display = 'none'; }, 5000);
-    }
-}
-
-// ── IDEALISTA (eliminado en panel Cristina) ───────────────────────────────
-async function loadIdealista() { /* no idealista in this panel */ }
-
 // ── PANEL FINANCIERO ───────────────────────────────────────────────────────
 function fmtEur(v) {
     if (v === null || v === undefined) return '—';
@@ -813,12 +437,7 @@ function fmtEur(v) {
 }
 
 async function loadFinancialPanel() {
-    // Mostrar estado de carga
-    const loadingEls = document.querySelectorAll('[id^="fin-"], [id^="prog-"], [id^="kpi-"], [id^="sum-"]');
-    loadingEls.forEach(el => { if(el.textContent === '—' || el.textContent === '') el.textContent = '...'; });
-
     try {
-        // Timeout de 30 segundos para Firefly lento
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 30000);
         const res  = await fetch('/data', { signal: controller.signal });
@@ -831,34 +450,63 @@ async function loadFinancialPanel() {
         // ── Fila 1 ──
         document.getElementById('fin-month-name').textContent  = mp.month_name;
         document.getElementById('fin-fixed').textContent       = fmtEur(mp.fixed_expenses);
-        if (document.getElementById('fin-discr'))
-            document.getElementById('fin-discr').textContent   = fmtEur(mp.discretionary_expenses);
-        if (document.getElementById('fin-daily-avg'))
-            document.getElementById('fin-daily-avg').textContent = mp.daily_average.toFixed(2);
         if (document.getElementById('fin-discr-goal-top'))
             document.getElementById('fin-discr-goal-top').textContent = fmtEur(mp.discretionary_goal);
 
-        // ── Fila 2: barra tricolor y totales ──
+        // ── Barra tricolor / con exceso ──
         const goal      = mp.monthly_goal || 3000;
         const fixed     = mp.fixed_expenses || 0;
         const discr     = mp.discretionary_expenses || 0;
         const total     = fixed + discr;
         const remaining = Math.max(goal - total, 0);
-        const fixedPct  = Math.min((fixed / goal) * 100, 100);
-        const discrPct2 = Math.min((discr / goal) * 100, 100 - fixedPct);
+        const isOver    = total > goal;
 
-        document.getElementById('fin-total').textContent  = fmtEur(total);
-        document.getElementById('fin-margin').textContent = fmtEur(remaining);
+        const barWrap     = document.getElementById('fin-bar-wrap');
+        const barOverWrap = document.getElementById('fin-bar-over-wrap');
+        const overLegend  = document.getElementById('fin-bar-over-legend');
 
-        // Barra tricolor
-        document.getElementById('fin-bar-fixed').style.width         = fixedPct.toFixed(1) + '%';
-        document.getElementById('fin-bar-discr').style.width         = discrPct2.toFixed(1) + '%';
-        document.getElementById('fin-bar-fixed-label').textContent   = fixedPct > 6 ? fmtEur(fixed) : '';
-        document.getElementById('fin-bar-discr-label').textContent   = discrPct2 > 4 ? fmtEur(discr) : '';
-        document.getElementById('fin-bar-remaining-label').textContent = fmtEur(remaining);
-        document.getElementById('fin-bar-remaining-label').style.color = '#dc2626';
+        if (!isOver) {
+            // Sin exceso: barra normal
+            barWrap.style.display     = 'flex';
+            barOverWrap.style.display = 'none';
+            if (overLegend) overLegend.style.display = 'none';
 
-        // ── Fila 3: header ──
+            const fixedPct  = Math.min((fixed / goal) * 100, 100);
+            const discrPct2 = Math.min((discr / goal) * 100, 100 - fixedPct);
+            document.getElementById('fin-bar-fixed').style.width           = fixedPct.toFixed(1) + '%';
+            document.getElementById('fin-bar-discr').style.width           = discrPct2.toFixed(1) + '%';
+            document.getElementById('fin-bar-fixed-label').textContent     = fixedPct > 6 ? fmtEur(fixed) : '';
+            document.getElementById('fin-bar-discr-label').textContent     = discrPct2 > 4 ? fmtEur(discr) : '';
+            document.getElementById('fin-bar-remaining-label').textContent = fmtEur(remaining);
+        } else {
+            // Con exceso: barra alternativa con segmento rojo
+            barWrap.style.display     = 'none';
+            barOverWrap.style.display = 'flex';
+            if (overLegend) overLegend.style.display = 'inline';
+
+            const over        = total - goal;
+            const totalBar    = total;
+            const fixedPctOv  = (fixed / totalBar) * 100;
+            const discrPctOv  = (discr  / totalBar) * 100;
+            const overPctOv   = (over   / totalBar) * 100;
+
+            const ovWrap = document.getElementById('fin-bar-over-wrap');
+            ovWrap.style.position = 'relative';
+            ovWrap.style.height   = '22px';
+            ovWrap.style.borderRadius = '8px';
+            ovWrap.style.border   = '2px solid #dc2626';
+            ovWrap.style.overflow = 'hidden';
+            ovWrap.style.display  = 'flex';
+
+            document.getElementById('fin-bar-fixed-ov').style.width        = fixedPctOv.toFixed(1) + '%';
+            document.getElementById('fin-bar-discr-ov').style.width        = discrPctOv.toFixed(1) + '%';
+            document.getElementById('fin-bar-over').style.width            = overPctOv.toFixed(1) + '%';
+            document.getElementById('fin-bar-fixed-label-ov').textContent  = fixedPctOv > 6 ? fmtEur(fixed) : '';
+            document.getElementById('fin-bar-discr-label-ov').textContent  = discrPctOv > 4 ? fmtEur(discr) : '';
+            document.getElementById('fin-bar-over-label').textContent      = overPctOv > 4 ? '+' + fmtEur(over) : '';
+        }
+
+        // ── Header RITMO DE GASTO ──
         document.getElementById('fin-month-name2').textContent = mp.month_name;
         document.getElementById('fin-days-header').textContent =
             `${mp.days_elapsed} de ${mp.days_in_month} días — ${mp.progress_pct}% del mes`;
@@ -866,19 +514,16 @@ async function loadFinancialPanel() {
         // 4 KPIs
         document.getElementById('fin-days-elapsed').textContent  = mp.days_elapsed;
         document.getElementById('fin-days-of').textContent       = `de ${mp.days_in_month} días`;
-        if (document.getElementById('fin-daily-budget')) {
-            const dailyBudget = Math.floor((mp.discretionary_goal || 1900) / (mp.days_in_month || 30));
+        const dailyBudget = Math.floor((mp.discretionary_goal || 1900) / (mp.days_in_month || 30));
+        if (document.getElementById('fin-daily-budget'))
             document.getElementById('fin-daily-budget').textContent = `Puedo gastar/día: ${dailyBudget} €`;
-        }
-        if (document.getElementById('fin-daily-budget2')) {
-            const dailyBudget2 = Math.floor((mp.discretionary_goal || 1900) / (mp.days_in_month || 30));
-            document.getElementById('fin-daily-budget2').textContent = `${dailyBudget2} €`;
-        }
-        // Nuevos indicadores de días en la gráfica
+        if (document.getElementById('fin-daily-budget2'))
+            document.getElementById('fin-daily-budget2').textContent = `${dailyBudget} €`;
         if (document.getElementById('fin-days-elapsed2'))
             document.getElementById('fin-days-elapsed2').textContent = mp.days_elapsed;
         if (document.getElementById('fin-days-remaining'))
             document.getElementById('fin-days-remaining').textContent = mp.days_remaining;
+
         // Posicionar tarjetas en el centro de su zona proporcional
         const _ePct = (mp.days_elapsed / mp.days_in_month) * 100;
         const _eMid = (_ePct / 2).toFixed(1) + '%';
@@ -887,6 +532,7 @@ async function loadFinancialPanel() {
         const _cardRem = document.getElementById('fin-card-remaining');
         if (_cardEl)  _cardEl.style.left  = _eMid;
         if (_cardRem) _cardRem.style.left = _rMid;
+
         document.getElementById('fin-total2').textContent       = fmtEur(remaining);
         document.getElementById('fin-fixed2').textContent       = `Margen del mes (objetivo ${fmtEur(goal)})`;
         document.getElementById('fin-discr2').textContent       = fmtEur(mp.discretionary_expenses);
@@ -894,13 +540,10 @@ async function loadFinancialPanel() {
         document.getElementById('fin-goal-discr').textContent   = fmtEur(mp.discretionary_goal);
         document.getElementById('fin-target-today').textContent = `Hoy deberías llevar: ${fmtEur(mp.proportional_target)}`;
 
-        // Barra de días con ticks
-        document.getElementById('fin-day-center').textContent =
-            `Día ${mp.days_elapsed} / ${mp.days_in_month}`;
-        // Labels de días: transcurridos centrado en zona izq, restantes centrado en zona der
-        const elapsedPct   = (mp.days_elapsed / mp.days_in_month) * 100;
-        const elapsedMidPct   = elapsedPct / 2;                          // centro de la zona transcurrida
-        const remainingMidPct = elapsedPct + (100 - elapsedPct) / 2;    // centro de la zona restante
+        // Labels de días
+        const elapsedPct      = (mp.days_elapsed / mp.days_in_month) * 100;
+        const elapsedMidPct   = elapsedPct / 2;
+        const remainingMidPct = elapsedPct + (100 - elapsedPct) / 2;
         const labelElapsed   = document.getElementById('fin-label-elapsed');
         const labelRemaining = document.getElementById('fin-label-remaining');
         if (labelElapsed) {
@@ -911,14 +554,13 @@ async function loadFinancialPanel() {
             labelRemaining.textContent = mp.days_remaining + ' días';
             labelRemaining.style.left  = remainingMidPct.toFixed(1) + '%';
         }
-        // Ocultar el label central antiguo si existe
-        const oldCenter = document.getElementById('fin-day-center-label');
-        if (oldCenter) oldCenter.textContent = '';
+
+        // Barra de días con ticks
         const ticksEl = document.getElementById('fin-days-ticks');
         let ticksHtml = '';
         for (let i = 1; i <= mp.days_in_month; i++) {
-            const isPast    = i <= mp.days_elapsed;
-            const isToday   = i === mp.days_elapsed;
+            const isPast      = i <= mp.days_elapsed;
+            const isToday     = i === mp.days_elapsed;
             const isMilestone = (i % 5 === 0 || i === 1 || i === mp.days_in_month);
             const h = isToday ? 28 : isMilestone ? 20 : 14;
             const color = isPast
@@ -926,11 +568,8 @@ async function loadFinancialPanel() {
                 : 'var(--border)';
             const todayAttr = isToday ? ' id="fin-today-tick"' : '';
             ticksHtml += `<div${todayAttr} style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">`;
-            // Flecha encima del día actual (ocupa espacio fijo para todos los ticks)
             ticksHtml += `<div style="height:18px;display:flex;align-items:flex-end;justify-content:center;">`;
-            if (isToday) {
-                ticksHtml += `<span style="font-size:14px;color:var(--accent-orange);line-height:1;">&#9660;</span>`;
-            }
+            if (isToday) ticksHtml += `<span style="font-size:14px;color:var(--accent-orange);line-height:1;">&#9660;</span>`;
             ticksHtml += `</div>`;
             ticksHtml += `<div style="width:3px;height:${h}px;background:${color};border-radius:2px;"></div>`;
             if (isMilestone) {
@@ -942,38 +581,41 @@ async function loadFinancialPanel() {
         }
         ticksEl.innerHTML = ticksHtml;
 
-        // Dos barras: Ideal vs Real (escala 0 → discretionary_goal)
-        const discrGoal  = mp.discretionary_goal || 1;
-        const idealVal   = mp.proportional_target || 0;
-        const realVal    = mp.discretionary_expenses || 0;
-        const idealPct   = Math.min((idealVal / discrGoal) * 100, 100);
-        const realPct    = Math.min((realVal  / discrGoal) * 100, 100);
+        // Barras Ideal vs Real
+        const discrGoal = mp.discretionary_goal || 1;
+        const idealVal  = mp.proportional_target || 0;
+        const realVal   = mp.discretionary_expenses || 0;
+        const dayPct    = Math.min((mp.days_elapsed / mp.days_in_month) * 100, 100);
+        const realPct   = Math.min((realVal / discrGoal) * 100, 100);
 
-        document.getElementById('fin-discr-label').textContent =
-            `Variables: ideal vs real (objetivo ${fmtEur(discrGoal)})`;
-        document.getElementById('fin-discr-goal-label').textContent = fmtEur(discrGoal);
-
-        // Barra IDEAL: ancho = % días transcurridos (alineada con ticks), valor en espacio restante
-        const dayPct = Math.min((mp.days_elapsed / mp.days_in_month) * 100, 100);
+        // Barra IDEAL
         document.getElementById('fin-ideal-bar').style.width = dayPct.toFixed(1) + '%';
-        const idealValEl = document.getElementById('fin-ideal-value');
-        idealValEl.textContent = fmtEur(idealVal);
-        idealValEl.style.left      = 'calc(' + dayPct.toFixed(1) + '% + 8px)';
-        idealValEl.style.transform = 'translateY(-50%)';
-        idealValEl.style.marginLeft = '0';
+        document.getElementById('fin-ideal-value').textContent = fmtEur(idealVal);
 
-        document.getElementById('fin-discr-bar').style.width  = realPct.toFixed(1) + '%';
-        const realValEl = document.getElementById('fin-real-value');
-        realValEl.textContent = fmtEur(realVal);
-        realValEl.style.left      = 'calc(' + realPct.toFixed(1) + '% + 8px)';
-        realValEl.style.transform = 'translateY(-50%)';
+        // Barra REAL
+        const isRealOver   = realVal > discrGoal;
+        const realBarEl    = document.getElementById('fin-real-bar');
+        const realValEl    = document.getElementById('fin-real-value');
+        const realOverWrap = document.getElementById('fin-real-over-wrap');
+
+        if (!isRealOver) {
+            if (realBarEl) realBarEl.style.width = realPct.toFixed(1) + '%';
+            realValEl.textContent = fmtEur(realVal);
+            realOverWrap.style.display = 'none';
+        } else {
+            if (realBarEl) realBarEl.style.width = '100%';
+            realValEl.textContent = fmtEur(discrGoal);
+            const over    = realVal - discrGoal;
+            const overPct = Math.min((over / discrGoal) * 100, 100);
+            realOverWrap.style.display = 'block';
+            document.getElementById('fin-real-bar-over').style.width = overPct.toFixed(1) + '%';
+            document.getElementById('fin-real-over-value').textContent = '+' + fmtEur(over);
+        }
 
         // Ahorro / Déficit
         const devEl    = document.getElementById('fin-deviation');
         const devPct   = document.getElementById('fin-deviation-pct');
         const devTitle = document.getElementById('fin-deviation-title');
-        // La desviación de Firefly: negativa = gastas menos de lo ideal = AHORRO
-        // Invertimos el signo para que ahorro sea positivo y déficit negativo
         const savingVal = -(mp.deviation || 0);
         const isAhorro  = savingVal >= 0;
         if (devTitle) devTitle.textContent = isAhorro ? 'AHORRO' : 'DÉFICIT';
@@ -982,26 +624,131 @@ async function loadFinancialPanel() {
         const savingPct = (-(mp.deviation_pct || 0)).toFixed(1);
         devPct.textContent = `${isAhorro ? '+' : ''}${savingPct}% respecto al objetivo proporcional de hoy`;
 
-        // Proyección
-        const projEl  = document.getElementById('fin-projection');
-        const projVs  = document.getElementById('fin-projection-vs');
-        projEl.textContent = fmtEur(mp.projected_discr);
-        const vsGoal = mp.projected_discr - mp.discretionary_goal;
-        projVs.textContent = `${vsGoal >= 0 ? '+' : ''}${fmtEur(vsGoal)} vs objetivo discrecional (${fmtEur(mp.discretionary_goal)})`;
-
-        // ── Fila 4: Resumen ──
-        document.getElementById('fin-yesterday').textContent       = fmtEur(d.yesterday?.total);
-        document.getElementById('fin-yesterday-count').textContent = `${d.yesterday?.count ?? 0} transacciones`;
-        document.getElementById('fin-weekly').textContent          = fmtEur(d.weekly?.expenses);
-        document.getElementById('fin-weekly-count').textContent    = `${d.weekly?.transactions_count ?? 0} transacciones`;
-        document.getElementById('fin-current-month').textContent   = fmtEur(d.current_month?.expenses);
-        document.getElementById('fin-current-month-name').textContent = mp.month_name;
-        document.getElementById('fin-prev-month').textContent      = fmtEur(d.previous_month?.expenses);
-        document.getElementById('fin-prev-month-name').textContent = 'Mes anterior';
+        // Guardar fixed_items para el desplegable
+        window._fixedItems = mp.fixed_items || [];
+        renderFixedCategories(window._fixedItems);
 
     } catch (err) {
         console.error('Financial panel error:', err);
     }
+}
+
+// ── GASTOS FIJOS DESPLEGABLE ───────────────────────────────────────────────
+function toggleFixedDetail() {
+    const panel  = document.getElementById('fin-fixed-detail');
+    const btn    = document.getElementById('fin-fixed-toggle');
+    const isOpen = panel.style.display !== 'none';
+    panel.style.display = isOpen ? 'none' : 'block';
+    if (btn) btn.innerHTML = isOpen ? '&#9660; ver detalle' : '&#9650; ocultar';
+}
+
+function toggleDiscrDetail() {
+    const panel  = document.getElementById('fin-discr-detail');
+    const btn    = document.getElementById('fin-discr-toggle');
+    const isOpen = panel.style.display !== 'none';
+    if (!isOpen) {
+        panel.style.display = 'block';
+        if (btn) btn.innerHTML = '&#9650; ocultar';
+        loadDiscrCategories();
+    } else {
+        panel.style.display = 'none';
+        if (btn) btn.innerHTML = '&#9660; ver detalle';
+    }
+}
+
+async function loadDiscrCategories() {
+    const container = document.getElementById('fin-discr-categories');
+    if (!container) return;
+    container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;">Cargando...</p>';
+    try {
+        const res  = await fetch('/mes-detalle');
+        const json = await res.json();
+        if (!json.success) throw new Error('API error');
+        // Excluir gastos fijos (recurrentes) comparando con fixed_items
+        const fixedTitles = new Set((window._fixedItems || []).map(i => (i.title || i.description || '').toLowerCase()));
+        const discr = json.transactions.filter(t => !fixedTitles.has((t.description || '').toLowerCase()));
+        renderDiscrCategories(discr);
+    } catch (err) {
+        container.innerHTML = '<p style="color:var(--accent-red);font-size:13px;">Error cargando datos.</p>';
+        console.error(err);
+    }
+}
+
+function renderDiscrCategories(items) {
+    const container = document.getElementById('fin-discr-categories');
+    if (!container) return;
+    if (!items || items.length === 0) {
+        container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;">No hay gastos discrecionales este mes.</p>';
+        return;
+    }
+    // Agrupar por categoría
+    const groups = {};
+    for (const item of items) {
+        const cat = item.category || 'Sin categoría';
+        if (!groups[cat]) groups[cat] = { total: 0, items: [] };
+        groups[cat].total += item.amount;
+        groups[cat].items.push(item);
+    }
+    const sortedGroups = Object.entries(groups).sort((a, b) => b[1].total - a[1].total);
+    let html = '<div style="display:flex;flex-direction:column;gap:16px;">';
+    for (const [cat, data] of sortedGroups) {
+        data.items.sort((a, b) => b.amount - a.amount);
+        html += `
+        <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border);">
+                <span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-orange);">${cat}</span>
+                <span style="font-size:13px;font-weight:700;color:var(--accent-orange);">${fmtEur(data.total)}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;">`;
+        for (const item of data.items) {
+            html += `
+                <div style="padding:2px 8px;font-size:13px;color:var(--text-primary);">
+                    ${item.description || '—'} <span style="font-weight:600;">${fmtEur(item.amount)}</span>
+                    <span style="font-size:11px;color:var(--text-muted);margin-left:6px;">${item.date || ''}</span>
+                </div>`;
+        }
+        html += `</div></div>`;
+    }
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function renderFixedCategories(items) {
+    const container = document.getElementById('fin-fixed-categories');
+    if (!container) return;
+    if (!items || items.length === 0) {
+        container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;">No hay gastos recurrentes este mes.</p>';
+        return;
+    }
+    // Agrupar por categoría
+    const groups = {};
+    for (const item of items) {
+        const cat = item.category || 'Sin categoría';
+        if (!groups[cat]) groups[cat] = { total: 0, items: [] };
+        groups[cat].total += item.amount;
+        groups[cat].items.push(item);
+    }
+    const sortedGroups = Object.entries(groups).sort((a, b) => b[1].total - a[1].total);
+    let html = '<div style="display:flex;flex-direction:column;gap:12px;">';
+    for (const [cat, data] of sortedGroups) {
+        data.items.sort((a, b) => b.amount - a.amount);
+        html += `
+        <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;padding-bottom:4px;border-bottom:1px solid var(--border);">
+                <span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent-blue);">${cat}</span>
+                <span style="font-size:13px;font-weight:700;color:var(--accent-blue);">${fmtEur(data.total)}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;">`;
+        for (const item of data.items) {
+            html += `
+                <div style="padding:2px 8px;font-size:13px;color:var(--text-primary);">
+                    ${item.title || item.description || '—'} <span style="font-weight:600;">${fmtEur(item.amount)}</span>
+                </div>`;
+        }
+        html += `</div></div>`;
+    }
+    html += '</div>';
+    container.innerHTML = html;
 }
 
 // ── LOAD ALL ───────────────────────────────────────────────────────────────

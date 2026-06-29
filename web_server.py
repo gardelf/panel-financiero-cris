@@ -4,7 +4,7 @@ Servidor Flask con llamadas paralelas a Firefly III
 """
 import os
 import calendar
-from datetime import datetime
+from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from flask import Flask, render_template, jsonify
 from firefly_client import FireflyClient
@@ -112,6 +112,72 @@ def panel_data():
                 'last_updated':   now.strftime('%Y-%m-%d %H:%M:%S')
             }
         })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@app.route('/mes-detalle', methods=['GET'])
+def mes_detalle():
+    """Devuelve el detalle de transacciones discrecionales del mes actual para el desplegable"""
+    try:
+        client = FireflyClient()
+        now = datetime.now()
+
+        start_date = datetime(now.year, now.month, 1)
+        if now.month == 12:
+            end_date = datetime(now.year + 1, 1, 1) - timedelta(days=1)
+        else:
+            end_date = datetime(now.year, now.month + 1, 1) - timedelta(days=1)
+
+        params = {
+            'start': start_date.strftime('%Y-%m-%d'),
+            'end': end_date.strftime('%Y-%m-%d'),
+            'type': 'withdrawal'
+        }
+
+        data = client._make_request('transactions', params=params)
+
+        if not data or 'data' not in data:
+            return jsonify({'success': True, 'transactions': []})
+
+        from firefly_client import _is_excluded
+        transactions = []
+
+        for transaction in data['data']:
+            attrs = transaction.get('attributes', {})
+            trans_list = attrs.get('transactions', [])
+
+            for trans in trans_list:
+                if trans.get('type') != 'withdrawal':
+                    continue
+                if _is_excluded(trans):
+                    continue
+                amount = abs(float(trans.get('amount', 0)))
+                if amount == 0:
+                    continue
+
+                # Formatear fecha
+                raw_date = trans.get('date', '')
+                try:
+                    date_obj = datetime.strptime(raw_date[:10], '%Y-%m-%d')
+                    date_fmt = date_obj.strftime('%d/%m')
+                except Exception:
+                    date_fmt = raw_date[:10]
+
+                transactions.append({
+                    'description': trans.get('description', ''),
+                    'amount': round(amount, 2),
+                    'category': trans.get('category_name', '') or 'Sin categoría',
+                    'date': date_fmt,
+                })
+
+        # Ordenar por importe descendente
+        transactions.sort(key=lambda x: -x['amount'])
+
+        return jsonify({'success': True, 'transactions': transactions})
 
     except Exception as e:
         import traceback
