@@ -185,6 +185,58 @@ def mes_detalle():
         return jsonify({'success': False, 'error': str(e)}), 500
 
 
+@app.route('/gastos-ayer', methods=['GET'])
+def gastos_ayer():
+    """Devuelve los gastos discrecionales de ayer en formato JSON (igual que Fernando)"""
+    try:
+        client = FireflyClient()
+        now = datetime.now()
+        yesterday = now - timedelta(days=1)
+
+        # Obtener gastos de ayer
+        ayer_data = client.get_yesterday_expenses()
+
+        # Obtener total acumulado del mes actual (discrecional)
+        current_month = client.get_monthly_summary(now.year, now.month)
+        total_mes = current_month.get('expenses', 0)
+
+        expenses_list = ayer_data.get('expenses', [])
+        total = ayer_data.get('total', 0)
+        count = len(expenses_list)
+        mes_nombre = now.strftime('%B %Y')
+
+        # Construir texto resumen
+        if count == 0:
+            summary = f"Ayer no hubo gastos registrados."
+        else:
+            lineas = '\n'.join(
+                f"- {e['description']}: {e['amount']} EUR ({e.get('category', 'Sin categoría')})"
+                for e in expenses_list
+            )
+            total_mes_fmt = f"{total_mes:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+            summary = (
+                f"Ayer gastaste {total:.2f} EUR en {count} {'compra' if count == 1 else 'compras'}:\n"
+                f"{lineas}\n\n"
+                f"\U0001f4b3 Total {mes_nombre}: {total_mes_fmt} EUR"
+            )
+
+        return jsonify({
+            'date':      yesterday.strftime('%Y-%m-%d'),
+            'count':     count,
+            'total':     round(total, 2),
+            'currency':  'EUR',
+            'expenses':  expenses_list,
+            'mes':       mes_nombre,
+            'total_mes': round(total_mes, 2),
+            'summary':   summary,
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({'status': 'ok', 'timestamp': datetime.now().isoformat()})
