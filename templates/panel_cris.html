@@ -345,7 +345,7 @@
                         <div style="font-size:12px;color:var(--accent-green);font-weight:600;margin-top:6px;" id="fin-daily-budget">—</div>
                     </div>
                     <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
-                        <div class="section-label" style="margin-bottom:6px;">Gasto discrecional</div>
+                        <div class="section-label" style="margin-bottom:6px;">Ya gastados</div>
                         <div style="font-size:24px;font-weight:700;color:var(--accent-orange);" id="fin-discr2">—</div>
                         <div style="font-size:12px;color:var(--text-muted);">
                             <span id="fin-daily2">—</span>
@@ -353,14 +353,14 @@
                         </div>
                     </div>
                     <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
-                        <div class="section-label" style="margin-bottom:6px;">Por gastar</div>
+                        <div class="section-label" style="margin-bottom:6px;">Días restantes</div>
                         <div style="font-size:24px;font-weight:700;color:var(--accent-green);" id="fin-total2">—</div>
-                        <div style="font-size:12px;color:var(--text-muted);" id="fin-fixed2">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);" id="fin-fixed2">para terminar el mes</div>
                     </div>
                     <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;">
-                        <div class="section-label" style="margin-bottom:6px;">Objetivo discrecional</div>
+                        <div class="section-label" style="margin-bottom:6px;">Por gastar</div>
                         <div style="font-size:24px;font-weight:700;color:var(--accent-green);" id="fin-goal-discr">—</div>
-                        <div style="font-size:12px;color:var(--text-muted);" id="fin-target-today">—</div>
+                        <div style="font-size:12px;color:var(--text-muted);" id="fin-target-today">disponibles hasta final de mes</div>
                     </div>
                 </div>
 
@@ -604,12 +604,12 @@ async function loadFinancialPanel() {
         if (_cardEl)  _cardEl.style.left  = _eMid;
         if (_cardRem) _cardRem.style.left = _rMid;
 
-        document.getElementById('fin-total2').textContent       = fmtEur(remaining);
-        document.getElementById('fin-fixed2').textContent       = `Margen del mes (objetivo ${fmtEur(goal)})`;
+        document.getElementById('fin-total2').textContent       = mp.days_remaining;
+        document.getElementById('fin-fixed2').textContent       = 'para terminar el mes';
         document.getElementById('fin-discr2').textContent       = fmtEur(mp.discretionary_expenses);
         document.getElementById('fin-daily2').textContent       = `Media: ${mp.daily_average.toFixed(2)} €/día`;
-        document.getElementById('fin-goal-discr').textContent   = fmtEur(mp.discretionary_goal);
-        document.getElementById('fin-target-today').textContent = `Hoy deberías llevar: ${fmtEur(mp.proportional_target)}`;
+        document.getElementById('fin-goal-discr').textContent   = fmtEur(remaining);
+        document.getElementById('fin-target-today').textContent = 'disponibles hasta final de mes';
 
         // Labels de días
         const elapsedPct      = (mp.days_elapsed / mp.days_in_month) * 100;
