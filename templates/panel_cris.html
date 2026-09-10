@@ -251,6 +251,8 @@
 
                 <!-- Barra tricolor / con exceso -->
                 <div style="margin-bottom:8px;">
+                    <!-- Escala monetaria, generada dinámicamente según el objetivo mensual -->
+                    <div id="fin-bar-scale" style="position:relative;height:30px;margin:0 1px 3px;"></div>
                     <!-- Barra normal (sin exceso) -->
                     <div id="fin-bar-wrap" style="position:relative;height:22px;background:var(--bg-secondary);border-radius:8px;border:1px solid var(--border);overflow:hidden;display:flex;">
                         <div id="fin-bar-fixed" style="height:100%;background:#2563eb;transition:width 0.6s ease;display:flex;align-items:center;justify-content:center;overflow:hidden;">
@@ -491,6 +493,33 @@ async function loadFinancialPanel() {
         // ── Barra tricolor / con exceso ──
         const goal      = mp.monthly_goal || 3000;
         const fixed     = mp.fixed_expenses || 0;
+
+        // Escala monetaria superior: usa intervalos legibles y se adapta al presupuesto.
+        const scaleEl = document.getElementById('fin-bar-scale');
+        if (scaleEl) {
+            let scaleStep = 500;
+            if (goal > 5000)  scaleStep = 1000;
+            if (goal > 10000) scaleStep = 2000;
+            if (goal > 20000) scaleStep = 5000;
+
+            const scaleValues = [0];
+            for (let amount = scaleStep; amount < goal; amount += scaleStep) {
+                scaleValues.push(amount);
+            }
+            scaleValues.push(goal);
+
+            scaleEl.innerHTML = scaleValues.map((amount, index) => {
+                const pct = (amount / goal) * 100;
+                const isFirst = index === 0;
+                const isLast = index === scaleValues.length - 1;
+                const translate = isFirst ? '0' : (isLast ? '-100%' : '-50%');
+                const formatted = amount.toLocaleString('es-ES') + ' €';
+                return `<div style="position:absolute;left:${pct}%;bottom:0;transform:translateX(${translate});display:flex;flex-direction:column;align-items:${isFirst ? 'flex-start' : (isLast ? 'flex-end' : 'center')};">
+                    <span style="font-size:10px;color:var(--text-muted);white-space:nowrap;">${formatted}</span>
+                    <span style="width:1px;height:8px;background:var(--text-muted);opacity:0.65;margin-top:3px;"></span>
+                </div>`;
+            }).join('');
+        }
         const discr     = mp.discretionary_expenses || 0;
         const total     = fixed + discr;
         const remaining = Math.max(goal - total, 0);
