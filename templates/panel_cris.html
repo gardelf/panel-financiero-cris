@@ -289,7 +289,7 @@
                             <span style="font-size:11px;color:var(--text-muted);">&#9632; Por gastar</span>
                             <span id="fin-bar-over-legend" style="font-size:11px;color:#dc2626;display:none;">&#9632; Exceso</span>
                         </div>
-                        <span style="font-size:11px;color:var(--text-muted);">3.000 €</span>
+                        <span id="fin-bar-goal-label" style="font-size:11px;color:var(--text-muted);">3.000 €</span>
                     </div>
                 </div>
 
@@ -493,6 +493,8 @@ async function loadFinancialPanel() {
         // ── Barra tricolor / con exceso ──
         const goal      = mp.monthly_goal || 3000;
         const fixed     = mp.fixed_expenses || 0;
+        const goalLabel = document.getElementById('fin-bar-goal-label');
+        if (goalLabel) goalLabel.textContent = fmtEur(goal);
 
         // Escala monetaria superior: usa intervalos legibles y se adapta al presupuesto.
         const scaleEl = document.getElementById('fin-bar-scale');
