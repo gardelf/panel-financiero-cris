@@ -22,9 +22,10 @@ def index():
 
 
 @app.route('/apple-touch-icon.png', methods=['GET'])
+@app.route('/apple-touch-icon-precomposed.png', methods=['GET'])
 def apple_touch_icon():
     """Icono estándar usado por Safari al añadir la web a la pantalla de inicio."""
-    return app.send_static_file('CRL-euro-icon.png')
+    return app.send_static_file('apple-touch-icon-crl-v3.png')
 
 
 @app.route('/data', methods=['GET'])
