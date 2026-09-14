@@ -21,6 +21,12 @@ def index():
     return render_template('panel_cris.html')
 
 
+@app.route('/apple-touch-icon.png', methods=['GET'])
+def apple_touch_icon():
+    """Icono estándar usado por Safari al añadir la web a la pantalla de inicio."""
+    return app.send_static_file('CRL-euro-icon.png')
+
+
 @app.route('/data', methods=['GET'])
 def panel_data():
     """Devuelve todos los datos financieros del panel como JSON (llamadas paralelas)"""
